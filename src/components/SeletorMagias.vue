@@ -1,15 +1,40 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { magias, obterMagia } from '../data/magias.js'
+import { agruparPorNivel, classeDoCatalogo, classes, magias, obterMagia } from '../data/magias.js'
 
 // Lista de ids de magias do catálogo associadas à ficha.
 const ids = defineModel({ type: Array, required: true })
 
+const props = defineProps({
+  // Texto do campo "Classe" da ficha; filtra as opções quando corresponde a uma classe do catálogo.
+  classe: { type: String, default: '' },
+})
+
 const escolhida = ref('')
 
+const classeAtual = computed(() => classeDoCatalogo(props.classe))
+
 // Ids que não existem mais no catálogo são ignorados na exibição.
-const associadas = computed(() => ids.value.map(obterMagia).filter(Boolean))
-const disponiveis = computed(() => magias.filter((m) => !ids.value.includes(m.id)))
+const associadas = computed(() =>
+  ids.value
+    .map(obterMagia)
+    .filter(Boolean)
+    .sort((a, b) => a.nivel - b.nivel || a.nome.localeCompare(b.nome, 'pt-BR')),
+)
+
+// Opções agrupadas: por nível da classe da ficha, ou por classe se ela não for reconhecida.
+const grupos = computed(() => {
+  const disponiveis = magias.filter((m) => !ids.value.includes(m.id))
+  if (classeAtual.value) {
+    return agruparPorNivel(disponiveis.filter((m) => m.classe === classeAtual.value)).map((g) => ({
+      rotulo: `Nível ${g.nivel}`,
+      magias: g.magias,
+    }))
+  }
+  return classes
+    .map((c) => ({ rotulo: c, magias: disponiveis.filter((m) => m.classe === c) }))
+    .filter((g) => g.magias.length)
+})
 
 function adicionar() {
   if (!escolhida.value || ids.value.includes(escolhida.value)) return
@@ -27,16 +52,14 @@ function remover(id) {
   <div class="seletor">
     <ul v-if="associadas.length" class="seletor__lista">
       <li v-for="magia in associadas" :key="magia.id" class="seletor__item">
-        <details>
-          <summary>
-            <strong>{{ magia.nome }}</strong>
-            <span class="seletor__meta">{{ magia.elemento }} · Nv. {{ magia.nivel }}</span>
-          </summary>
-          <p>{{ magia.descricao }}</p>
-          <p class="seletor__meta">
-            Custo: {{ magia.custo }} · Alcance: {{ magia.alcance }} · Duração: {{ magia.duracao }}
-          </p>
-        </details>
+        <div class="seletor__texto">
+          <strong>{{ magia.nome }}</strong>
+          <span class="seletor__efeito">{{ magia.efeito }}</span>
+          <span class="seletor__meta">
+            <template v-if="magia.classe !== classeAtual">{{ magia.classe }} · </template>
+            Nv. {{ magia.nivel }} · {{ magia.usosDia }}×/dia
+          </span>
+        </div>
         <button
           type="button"
           class="botao botao--pequeno botao--perigo"
@@ -48,18 +71,27 @@ function remover(id) {
       </li>
     </ul>
 
-    <div v-if="disponiveis.length" class="seletor__adicionar">
+    <div v-if="grupos.length" class="seletor__adicionar">
       <label class="visualmente-oculto" for="seletor-magia">Magia do grimório</label>
       <select id="seletor-magia" v-model="escolhida" class="campo">
-        <option value="">Adicionar magia do grimório…</option>
-        <option v-for="magia in disponiveis" :key="magia.id" :value="magia.id">
-          {{ magia.nome }} ({{ magia.elemento }}, nv. {{ magia.nivel }})
+        <option value="">
+          {{ classeAtual ? `Adicionar magia de ${classeAtual}…` : 'Adicionar magia do grimório…' }}
         </option>
+        <optgroup v-for="grupo in grupos" :key="grupo.rotulo" :label="grupo.rotulo">
+          <option v-for="magia in grupo.magias" :key="magia.id" :value="magia.id">
+            <template v-if="!classeAtual">Nv. {{ magia.nivel }} · </template>{{ magia.nome }} —
+            {{ magia.efeito }}
+          </option>
+        </optgroup>
       </select>
       <button type="button" class="botao botao--pequeno" :disabled="!escolhida" @click="adicionar">
         Adicionar
       </button>
     </div>
+    <p v-if="!classeAtual" class="aviso seletor__dica">
+      Dica: preencha a Classe com uma das classes do grimório ({{ classes.join(', ') }}) para ver
+      só as magias dela.
+    </p>
   </div>
 </template>
 
@@ -87,28 +119,20 @@ function remover(id) {
   background: var(--pergaminho);
 }
 
-.seletor__item details {
+.seletor__texto {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.seletor__item summary {
-  cursor: pointer;
-}
-
-.seletor__item p {
-  margin: 0.35rem 0 0;
+.seletor__efeito {
   font-size: 0.9rem;
 }
 
 .seletor__meta {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--tinta-suave);
-  margin-left: 0.4em;
-}
-
-p.seletor__meta {
-  margin-left: 0;
 }
 
 .seletor__adicionar {
@@ -121,5 +145,10 @@ p.seletor__meta {
   min-width: 0;
   padding: 0.25em 0.5em;
   font-size: 0.9rem;
+}
+
+.seletor__dica {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
 }
 </style>

@@ -1,6 +1,8 @@
 <script setup>
 defineProps({
-  magias: { type: Array, required: true },
+  // [{ nivel, magias: [...] }]
+  grupos: { type: Array, required: true },
+  mostrarClasse: { type: Boolean, default: false },
   // ids das magias que a ficha alvo já possui; null quando não há ficha alvo
   idsNaFicha: { type: Array, default: null },
 })
@@ -9,143 +11,135 @@ const emit = defineEmits(['adicionar'])
 </script>
 
 <template>
-  <ul class="magias">
-    <li v-for="magia in magias" :key="magia.id" class="magia">
-      <header class="magia__topo">
-        <h3 class="magia__nome">{{ magia.nome }}</h3>
-        <span class="magia__nivel">Nível {{ magia.nivel }}</span>
-      </header>
-      <p class="magia__etiquetas">
-        <span class="etiqueta">{{ magia.categoria }}</span>
-        <span class="etiqueta">{{ magia.elemento }}</span>
-      </p>
-      <p class="magia__descricao">{{ magia.descricao }}</p>
-
-      <details class="magia__detalhes">
-        <summary>Detalhes</summary>
-        <dl>
-          <dt>Custo</dt>
-          <dd>{{ magia.custo }}</dd>
-          <dt>Alcance</dt>
-          <dd>{{ magia.alcance }}</dd>
-          <dt>Duração</dt>
-          <dd>{{ magia.duracao }}</dd>
-        </dl>
-        <template v-if="magia.efeitos?.length">
-          <p class="magia__subtitulo">Efeitos</p>
-          <ul class="magia__efeitos">
-            <li v-for="(efeito, i) in magia.efeitos" :key="i">{{ efeito }}</li>
-          </ul>
-        </template>
-      </details>
-
-      <div v-if="idsNaFicha" class="magia__acao">
-        <span v-if="idsNaFicha.includes(magia.id)" class="aviso">✓ Já está na ficha</span>
-        <button
-          v-else
-          type="button"
-          class="botao botao--pequeno"
-          @click="emit('adicionar', magia.id)"
-        >
-          + Adicionar à ficha
-        </button>
-      </div>
-    </li>
-  </ul>
+  <div class="niveis">
+    <section v-for="grupo in grupos" :key="grupo.nivel" class="nivel">
+      <h3 class="nivel__titulo">Nível {{ grupo.nivel }}</h3>
+      <ul class="magias">
+        <li v-for="magia in grupo.magias" :key="magia.id" class="magia">
+          <div class="magia__principal">
+            <span class="magia__nome">{{ magia.nome }}</span>
+            <span v-if="mostrarClasse" class="etiqueta">{{ magia.classe }}</span>
+          </div>
+          <span class="magia__efeito">{{ magia.efeito }}</span>
+          <span class="magia__usos" :title="`${magia.usosDia} uso(s) por dia`">
+            {{ magia.usosDia }}×/dia
+          </span>
+          <div v-if="idsNaFicha" class="magia__acao">
+            <span v-if="idsNaFicha.includes(magia.id)" class="aviso">✓ Na ficha</span>
+            <button
+              v-else
+              type="button"
+              class="botao botao--pequeno"
+              :aria-label="`Adicionar ${magia.nome} à ficha`"
+              @click="emit('adicionar', magia.id)"
+            >
+              + Ficha
+            </button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
 </template>
 
 <style scoped>
+.niveis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.nivel {
+  background: var(--caixa);
+  border: var(--borda);
+  border-radius: var(--raio);
+  padding: 0.75rem 1rem 0.5rem;
+}
+
+.nivel__titulo {
+  font-size: 1.05rem;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--tinta);
+}
+
 .magias {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
-  gap: 1rem;
 }
 
 .magia {
-  display: flex;
-  flex-direction: column;
-  background: var(--caixa);
-  border: var(--borda);
-  border-radius: var(--raio);
-  padding: 0.9rem 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) auto auto;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--linha);
 }
 
-.magia__topo {
+.magia:last-child {
+  border-bottom: none;
+}
+
+.magia__principal {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .magia__nome {
-  font-size: 1.15rem;
+  font-weight: bold;
 }
 
-.magia__nivel {
-  font-size: 0.8rem;
-  white-space: nowrap;
+.magia__efeito {
+  font-size: 0.92rem;
+}
+
+.magia__usos {
+  font-size: 0.82rem;
   color: var(--tinta-suave);
+  white-space: nowrap;
 }
 
-.magia__etiquetas {
-  display: flex;
-  gap: 0.35rem;
-  margin: 0.4rem 0;
+.magia__acao {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.magia__acao .aviso {
+  font-size: 0.8rem;
 }
 
 .etiqueta {
-  font-size: 0.75rem;
-  padding: 0.05em 0.6em;
+  font-size: 0.72rem;
+  padding: 0.05em 0.55em;
   border: 1px solid var(--tinta);
   border-radius: 999px;
   background: var(--pergaminho);
 }
 
-.magia__descricao {
-  margin: 0 0 0.5rem;
-  flex: 1;
-}
+@media (max-width: 560px) {
+  .magia {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
 
-.magia__detalhes summary {
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
+  .magia__efeito {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 
-.magia__detalhes dl {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.15rem 0.75rem;
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-}
+  .magia__usos {
+    grid-column: 1;
+    grid-row: 3;
+  }
 
-.magia__detalhes dt {
-  font-weight: bold;
-}
-
-.magia__detalhes dd {
-  margin: 0;
-}
-
-.magia__subtitulo {
-  margin: 0.25rem 0 0;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.magia__efeitos {
-  margin: 0.25rem 0 0;
-  padding-left: 1.2rem;
-  font-size: 0.9rem;
-}
-
-.magia__acao {
-  margin-top: 0.75rem;
-  padding-top: 0.6rem;
-  border-top: 1px dashed var(--linha);
+  .magia__acao {
+    grid-column: 2;
+    grid-row: 1;
+  }
 }
 </style>

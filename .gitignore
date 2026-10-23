@@ -5,3 +5,9 @@ dist
 Thumbs.db
 .vscode/*
 !.vscode/extensions.json
+
+# Firebase (emulador local)
+.firebase
+firebase-debug.log
+firestore-debug.log
+ui-debug.log

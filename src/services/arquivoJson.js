@@ -1,6 +1,6 @@
 // Exportação e importação de fichas em arquivos JSON (backup e troca entre dispositivos).
 
-import { normalizarFicha } from './personagensStorage.js'
+import { normalizarFicha } from './ficha.js'
 
 function baixar(nomeArquivo, conteudo) {
   const blob = new Blob([JSON.stringify(conteudo, null, 2)], { type: 'application/json' })

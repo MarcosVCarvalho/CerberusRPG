@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:emulador": "vite --mode emulador",
+    "emulador": "npx -y firebase-tools@latest emulators:start --only firestore --project demo-grimorio",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^13.1.0",
     "vue": "^3.5.44"
   },
   "devDependencies": {

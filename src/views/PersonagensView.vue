@@ -3,153 +3,259 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import FichaPersonagem from '../components/FichaPersonagem.vue'
 import ListaPersonagens from '../components/ListaPersonagens.vue'
 import {
+  aplicarCampo,
   criarFicha,
-  definirIdAberta,
+  diferencas,
+  normalizarFicha,
+  novoId,
+  planificar,
+} from '../services/ficha.js'
+import {
+  atualizarCampos,
   excluirFicha,
-  listarFichas,
-  novoIdFicha,
+  ouvirFichas,
+  salvarFichaCompleta,
+} from '../services/mesaOnline.js'
+import {
+  definirIdAberta,
+  fichasLocaisPendentes,
+  marcarFichasLocaisEnviadas,
   obterIdAberta,
-  salvarFicha,
-} from '../services/personagensStorage.js'
+} from '../services/preferencias.js'
 import { exportarFicha, exportarTodas, lerArquivoFichas } from '../services/arquivoJson.js'
 
-const fichas = ref(listarFichas())
-const fichaAberta = ref(null)
+const props = defineProps({
+  mesaId: { type: String, required: true },
+})
+
+const fichas = ref([])
+const carregando = ref(true)
+const offline = ref(false)
+const selecionadaId = ref(obterIdAberta(props.mesaId))
+// Cópia editável da ficha aberta. "base" guarda o último estado conhecido do banco
+// (planificado); a diferença entre os dois são as edições locais ainda não enviadas.
+const rascunho = ref(null)
+let base = null
 const estado = ref('') // '', 'pendente', 'salvo', 'erro'
 const mensagem = ref(null) // { texto, erro }
 const entradaArquivo = ref(null)
+const fichasLocais = ref(fichasLocaisPendentes())
 
 let temporizador = null
-let pendente = false
+let gravacoesEmAndamento = 0
+let excluindoId = null
+let criandoId = null
+let pararDeOuvir = null
 
-function abrir(id) {
-  salvarAgora()
-  const ficha = fichas.value.find((f) => f.id === id)
-  fichaAberta.value = ficha ? JSON.parse(JSON.stringify(ficha)) : null
-  definirIdAberta(fichaAberta.value?.id ?? null)
-  estado.value = ''
+function mostrarErro(erro, contexto) {
+  console.error(erro)
+  const texto =
+    erro?.code === 'permission-denied'
+      ? 'Sem permissão para acessar esta mesa. Confira as regras do Firestore.'
+      : `${contexto}: ${erro?.message ?? erro}`
+  mensagem.value = { texto, erro: true }
 }
 
-function recarregarLista() {
-  fichas.value = listarFichas()
+function clonar(ficha) {
+  return JSON.parse(JSON.stringify(ficha))
 }
 
-function descartarPendente() {
-  clearTimeout(temporizador)
-  pendente = false
-}
-
-function salvarAgora() {
-  if (!pendente) return
-  descartarPendente()
-  if (!fichaAberta.value) return
-  if (salvarFicha(fichaAberta.value)) {
-    estado.value = 'salvo'
-    recarregarLista()
-  } else {
-    estado.value = 'erro'
-  }
-}
-
-// Salvamento automático: só reage a edições na ficha aberta, não à troca de ficha.
-watch(
-  fichaAberta,
-  (nova, antiga) => {
-    if (!nova || nova !== antiga) return
-    estado.value = 'pendente'
-    pendente = true
+// Aplica o estado do banco na ficha aberta, preservando os campos com edição local pendente.
+function sincronizarAberta() {
+  const remota = fichas.value.find((f) => f.id === selecionadaId.value)
+  if (!remota) {
     clearTimeout(temporizador)
-    temporizador = setTimeout(salvarAgora, 400)
+    temporizador = null
+    rascunho.value = null
+    base = null
+    return
+  }
+  const plano = planificar(remota)
+  if (!rascunho.value || rascunho.value.id !== remota.id || !base) {
+    rascunho.value = clonar(remota)
+    base = plano
+    return
+  }
+  const pendentes = diferencas(planificar(rascunho.value), base)
+  for (const [chave, valor] of Object.entries(plano)) {
+    if (!(chave in pendentes)) aplicarCampo(rascunho.value, chave, valor)
+  }
+  base = plano
+}
+
+function enviarAgora() {
+  clearTimeout(temporizador)
+  temporizador = null
+  if (!rascunho.value || !base) return
+  const patch = diferencas(planificar(rascunho.value), base)
+  if (!Object.keys(patch).length) return
+  const fichaId = rascunho.value.id
+  base = { ...base, ...patch }
+  gravacoesEmAndamento++
+  // A promessa só termina quando o servidor confirma (fica pendente se estiver sem internet).
+  atualizarCampos(props.mesaId, fichaId, patch)
+    .then(() => {
+      gravacoesEmAndamento--
+      if (!gravacoesEmAndamento && !temporizador && estado.value !== 'erro') estado.value = 'salvo'
+    })
+    .catch((erro) => {
+      gravacoesEmAndamento--
+      estado.value = 'erro'
+      console.error(erro)
+    })
+}
+
+watch(
+  rascunho,
+  () => {
+    if (!rascunho.value || !base) return
+    if (!Object.keys(diferencas(planificar(rascunho.value), base)).length) return
+    estado.value = 'pendente'
+    clearTimeout(temporizador)
+    temporizador = setTimeout(enviarAgora, 400)
   },
   { deep: true },
 )
 
-function nova() {
-  salvarAgora()
-  const ficha = criarFicha()
-  if (!salvarFicha(ficha)) {
-    mensagem.value = { texto: 'Não foi possível salvar no navegador.', erro: true }
-    return
+function ordenadas(lista) {
+  return [...lista].sort((a, b) => (a.nome || '').localeCompare(b.nome || '', 'pt-BR'))
+}
+
+function abrir(id) {
+  enviarAgora()
+  selecionadaId.value = id
+  definirIdAberta(props.mesaId, id)
+  rascunho.value = null
+  base = null
+  estado.value = ''
+  sincronizarAberta()
+}
+
+function aoReceberFichas(lista, { offline: semConexao }) {
+  fichas.value = lista
+  offline.value = semConexao
+  carregando.value = false
+  const presente = lista.some((f) => f.id === selecionadaId.value)
+  if (presente && selecionadaId.value === criandoId) criandoId = null
+  if (!presente && selecionadaId.value !== criandoId) {
+    if (rascunho.value && selecionadaId.value !== excluindoId) {
+      mensagem.value = { texto: 'A ficha que estava aberta foi excluída por outra pessoa.' }
+    }
+    excluindoId = null
+    selecionadaId.value = ordenadas(lista)[0]?.id ?? null
+    estado.value = ''
   }
-  recarregarLista()
-  abrir(ficha.id)
+  sincronizarAberta()
+}
+
+function nova() {
+  enviarAgora()
+  const ficha = criarFicha()
+  criandoId = ficha.id
+  selecionadaId.value = ficha.id
+  definirIdAberta(props.mesaId, ficha.id)
+  estado.value = ''
   mensagem.value = null
+  salvarFichaCompleta(props.mesaId, ficha).catch((e) => mostrarErro(e, 'Não foi possível criar'))
 }
 
 function excluir(ficha) {
   const nome = ficha.nome || 'Personagem sem nome'
-  if (!confirm(`Excluir a ficha "${nome}"? Esta ação não pode ser desfeita.`)) return
-  if (fichaAberta.value?.id === ficha.id) {
-    descartarPendente()
-    fichaAberta.value = null
+  if (!confirm(`Excluir a ficha "${nome}" para todos da mesa? Esta ação não pode ser desfeita.`)) {
+    return
   }
-  excluirFicha(ficha.id)
-  recarregarLista()
-  if (!fichaAberta.value && fichas.value.length) abrir(fichas.value[0].id)
-  if (!fichaAberta.value) definirIdAberta(null)
+  if (ficha.id === selecionadaId.value) {
+    clearTimeout(temporizador)
+    temporizador = null
+    excluindoId = ficha.id
+  }
+  excluirFicha(props.mesaId, ficha.id).catch((e) => mostrarErro(e, 'Não foi possível excluir'))
   mensagem.value = { texto: `Ficha "${nome}" excluída.` }
 }
 
 function exportar(ficha) {
-  salvarAgora()
-  exportarFicha(fichas.value.find((f) => f.id === ficha.id) ?? ficha)
+  enviarAgora()
+  exportarFicha(rascunho.value?.id === ficha.id ? rascunho.value : ficha)
 }
 
 function exportarBackup() {
-  salvarAgora()
+  enviarAgora()
   exportarTodas(fichas.value)
+}
+
+function enviarParaMesa(lista) {
+  for (const ficha of lista) {
+    salvarFichaCompleta(props.mesaId, ficha).catch((e) => mostrarErro(e, 'Não foi possível salvar'))
+  }
 }
 
 async function importar(evento) {
   const arquivos = [...(evento.target.files ?? [])]
   evento.target.value = ''
   if (!arquivos.length) return
-  salvarAgora()
+  enviarAgora()
 
-  let importadas = 0
+  const paraEnviar = []
   try {
     for (const arquivo of arquivos) {
       for (const ficha of await lerArquivoFichas(arquivo)) {
         const existente = fichas.value.find((f) => f.id === ficha.id)
         if (existente) {
           const substituir = confirm(
-            `Já existe a ficha "${existente.nome || 'sem nome'}".\n\n` +
+            `Já existe a ficha "${existente.nome || 'sem nome'}" nesta mesa.\n\n` +
               'OK = substituir pela versão importada\nCancelar = importar como cópia',
           )
           if (!substituir) {
-            ficha.id = novoIdFicha()
+            ficha.id = novoId()
             ficha.nome = `${ficha.nome || 'Personagem'} (cópia)`
           }
         }
-        if (!salvarFicha(ficha)) throw new Error('Não foi possível salvar no navegador.')
-        recarregarLista()
-        importadas++
+        paraEnviar.push(ficha)
       }
     }
-    mensagem.value = { texto: `${importadas} ficha(s) importada(s).` }
   } catch (erro) {
-    const parcial = importadas ? ` (${importadas} ficha(s) importada(s) antes do erro.)` : ''
-    mensagem.value = { texto: erro.message + parcial, erro: true }
+    mensagem.value = { texto: erro.message, erro: true }
+    return
   }
+  // Uma ficha substituída que esteja aberta é recarregada inteira do banco.
+  if (paraEnviar.some((f) => f.id === selecionadaId.value)) {
+    clearTimeout(temporizador)
+    temporizador = null
+    base = null
+  }
+  enviarParaMesa(paraEnviar)
+  mensagem.value = { texto: `${paraEnviar.length} ficha(s) importada(s).` }
+}
 
-  // Recarrega a ficha aberta caso ela tenha sido substituída.
-  const idAberta = fichaAberta.value?.id ?? fichas.value[0]?.id
-  if (idAberta) abrir(idAberta)
+function enviarFichasLocais() {
+  const lista = fichasLocais.value.flatMap((item) => {
+    try {
+      return [normalizarFicha(item)]
+    } catch {
+      return []
+    }
+  })
+  enviarParaMesa(lista)
+  marcarFichasLocaisEnviadas()
+  fichasLocais.value = []
+  mensagem.value = { texto: `${lista.length} ficha(s) deste navegador enviada(s) para a mesa.` }
 }
 
 function aoSairDaPagina() {
-  salvarAgora()
+  enviarAgora()
 }
 
 onMounted(() => {
-  const id = obterIdAberta()
-  const inicial = fichas.value.find((f) => f.id === id) ?? fichas.value[0]
-  if (inicial) abrir(inicial.id)
+  pararDeOuvir = ouvirFichas(props.mesaId, aoReceberFichas, (erro) => {
+    carregando.value = false
+    mostrarErro(erro, 'Não foi possível carregar a mesa')
+  })
   window.addEventListener('pagehide', aoSairDaPagina)
 })
 
 onBeforeUnmount(() => {
-  salvarAgora()
+  enviarAgora()
+  pararDeOuvir?.()
   window.removeEventListener('pagehide', aoSairDaPagina)
 })
 </script>
@@ -159,7 +265,7 @@ onBeforeUnmount(() => {
     <aside class="personagens__lateral">
       <ListaPersonagens
         :fichas="fichas"
-        :selecionada-id="fichaAberta?.id ?? null"
+        :selecionada-id="selecionadaId"
         @abrir="abrir"
         @nova="nova"
         @excluir="excluir"
@@ -192,12 +298,31 @@ onBeforeUnmount(() => {
           @change="importar"
         />
         <p class="aviso">
-          As fichas ficam salvas só neste navegador. Exporte um backup de vez em quando.
+          As fichas ficam online, na mesa, e todos com o link veem as mudanças na hora. Exportar
+          gera uma cópia de segurança em arquivo.
         </p>
       </div>
     </aside>
 
     <section class="personagens__principal">
+      <div v-if="offline && !carregando" class="mensagem mensagem--erro" role="status">
+        Sem conexão com a mesa. Suas mudanças serão enviadas quando a internet voltar.
+      </div>
+
+      <div v-if="fichasLocais.length" class="mensagem migracao" role="status">
+        <span>
+          Este navegador tem {{ fichasLocais.length }} ficha(s) da versão anterior, salvas só aqui.
+        </span>
+        <span class="migracao__acoes">
+          <button type="button" class="botao botao--primario botao--pequeno" @click="enviarFichasLocais">
+            Enviar para esta mesa
+          </button>
+          <button type="button" class="botao botao--pequeno" @click="fichasLocais = []">
+            Agora não
+          </button>
+        </span>
+      </div>
+
       <div
         v-if="mensagem"
         class="mensagem"
@@ -205,24 +330,24 @@ onBeforeUnmount(() => {
         role="status"
       >
         {{ mensagem.texto }}
-        <button type="button" class="botao botao--pequeno fechar" @click="mensagem = null">
-          Fechar
-        </button>
+        <button type="button" class="botao botao--pequeno" @click="mensagem = null">Fechar</button>
       </div>
 
-      <template v-if="fichaAberta">
+      <div v-if="carregando" class="painel vazio">Carregando a mesa…</div>
+
+      <template v-else-if="rascunho">
         <p class="estado" aria-live="polite">
           <span v-if="estado === 'pendente'">Salvando…</span>
-          <span v-else-if="estado === 'salvo'">✓ Salvo neste navegador</span>
+          <span v-else-if="estado === 'salvo'">✓ Salvo na mesa</span>
           <span v-else-if="estado === 'erro'" class="estado--erro">
-            Não foi possível salvar (armazenamento cheio ou bloqueado).
+            Não foi possível salvar a última mudança.
           </span>
         </p>
-        <FichaPersonagem :key="fichaAberta.id" v-model="fichaAberta" />
+        <FichaPersonagem :key="rascunho.id" v-model="rascunho" />
       </template>
 
       <div v-else class="painel vazio">
-        <h2>Nenhuma ficha aberta</h2>
+        <h2>Nenhuma ficha na mesa</h2>
         <p>Crie uma nova ficha ou importe um arquivo JSON para começar.</p>
         <button type="button" class="botao botao--primario" @click="nova">+ Nova ficha</button>
       </div>
@@ -282,6 +407,15 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+}
+
+.migracao {
+  flex-wrap: wrap;
+}
+
+.migracao__acoes {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .vazio {

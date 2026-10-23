@@ -1,7 +1,5 @@
-// Acesso às fichas salvas no LocalStorage do navegador.
-// Cada navegador/dispositivo tem o seu próprio armazenamento: use exportar/importar JSON para backup.
+// Modelo da ficha de personagem: campos, criação, normalização e comparação campo a campo.
 
-const CHAVE = 'grimorio-rpg:personagens'
 const VERSAO = 1
 
 export const ATRIBUTOS = [
@@ -19,17 +17,17 @@ export const ATRIBUTOS = [
   { chave: 'sorte', rotulo: 'Sorte' },
 ]
 
-const CAMPOS_TEXTO = [
+export const CAMPOS_TEXTO = [
   'jogador', 'nome', 'raca', 'classe', 'nivel', 'dinheiro', 'idade', 'genero',
   'magiasHabilidades', 'personalidade', 'tracosPositivos', 'tracosNegativos', 'equipamentos',
 ]
 
-function novoId() {
+export function novoId() {
   if (globalThis.crypto?.randomUUID) return crypto.randomUUID()
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
 }
 
-function fichaPadrao() {
+export function criarFicha() {
   const agora = new Date().toISOString()
   return {
     id: novoId(),
@@ -47,13 +45,13 @@ function comoTexto(valor) {
   return typeof valor === 'string' ? valor : String(valor)
 }
 
-// Mescla um objeto qualquer (salvo ou importado) com a ficha padrão,
+// Mescla um objeto qualquer (do banco ou importado) com a ficha padrão,
 // descartando campos desconhecidos e corrigindo tipos.
 export function normalizarFicha(dados) {
   if (!dados || typeof dados !== 'object' || Array.isArray(dados)) {
     throw new Error('Ficha inválida: o conteúdo não é um objeto.')
   }
-  const base = fichaPadrao()
+  const base = criarFicha()
   const ficha = {
     ...base,
     id: typeof dados.id === 'string' && dados.id ? dados.id : base.id,
@@ -69,90 +67,32 @@ export function normalizarFicha(dados) {
   return ficha
 }
 
-export function criarFicha() {
-  return fichaPadrao()
+// Representação "plana" dos campos editáveis: { nome, 'atributos.vida', magiasIds, ... }.
+// As chaves são os caminhos usados nas atualizações parciais do banco.
+export function planificar(ficha) {
+  const plano = {}
+  for (const campo of CAMPOS_TEXTO) plano[campo] = ficha[campo]
+  for (const { chave } of ATRIBUTOS) plano[`atributos.${chave}`] = ficha.atributos[chave]
+  plano.magiasIds = [...ficha.magiasIds]
+  return plano
 }
 
-export function novoIdFicha() {
-  return novoId()
+function iguais(a, b) {
+  return Array.isArray(a) ? JSON.stringify(a) === JSON.stringify(b) : a === b
 }
 
-function lerTodas() {
-  let bruto
-  try {
-    bruto = localStorage.getItem(CHAVE)
-  } catch {
-    return []
+// Campos de "atual" que diferem de "base" (ambos planificados).
+export function diferencas(atual, base) {
+  const patch = {}
+  for (const [chave, valor] of Object.entries(atual)) {
+    if (!iguais(valor, base[chave])) patch[chave] = valor
   }
-  if (!bruto) return []
-  try {
-    const lista = JSON.parse(bruto)
-    if (!Array.isArray(lista)) throw new Error('formato inesperado')
-    return lista.flatMap((item) => {
-      try {
-        return [normalizarFicha(item)]
-      } catch {
-        return []
-      }
-    })
-  } catch {
-    // Dados corrompidos: guarda uma cópia em vez de apagar.
-    try {
-      localStorage.setItem(`${CHAVE}:corrompido:${Date.now()}`, bruto)
-    } catch {
-      /* sem espaço para a cópia */
-    }
-    return []
-  }
+  return patch
 }
 
-function gravarTodas(lista) {
-  try {
-    localStorage.setItem(CHAVE, JSON.stringify(lista))
-    return true
-  } catch {
-    return false
-  }
-}
-
-export function listarFichas() {
-  return lerTodas()
-}
-
-export function obterFicha(id) {
-  return lerTodas().find((f) => f.id === id) ?? null
-}
-
-// Cria ou atualiza. Retorna false se o navegador recusar a gravação.
-export function salvarFicha(ficha) {
-  const lista = lerTodas()
-  const atual = { ...normalizarFicha(ficha), atualizadoEm: new Date().toISOString() }
-  const indice = lista.findIndex((f) => f.id === atual.id)
-  if (indice >= 0) lista[indice] = atual
-  else lista.push(atual)
-  return gravarTodas(lista)
-}
-
-export function excluirFicha(id) {
-  return gravarTodas(lerTodas().filter((f) => f.id !== id))
-}
-
-// Última ficha aberta (usada para reabrir a ficha e como alvo padrão no Grimório).
-const CHAVE_ABERTA = 'grimorio-rpg:aberta'
-
-export function obterIdAberta() {
-  try {
-    return localStorage.getItem(CHAVE_ABERTA)
-  } catch {
-    return null
-  }
-}
-
-export function definirIdAberta(id) {
-  try {
-    if (id) localStorage.setItem(CHAVE_ABERTA, id)
-    else localStorage.removeItem(CHAVE_ABERTA)
-  } catch {
-    /* ignorado */
-  }
+// Escreve um campo planificado de volta na ficha.
+export function aplicarCampo(ficha, chave, valor) {
+  if (chave.startsWith('atributos.')) ficha.atributos[chave.slice('atributos.'.length)] = valor
+  else if (chave === 'magiasIds') ficha.magiasIds = [...valor]
+  else ficha[chave] = valor
 }

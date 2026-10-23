@@ -1,0 +1,500 @@
+{
+  "classes": {
+    "Druida": {
+      "1": [
+        {"nome": "Curar Ferimentos Leves", "efeito": "1d8 de Cura", "usos_dia": 3},
+        {"nome": "Chicote de Espinhos", "efeito": "1d6 de Dano", "usos_dia": 4},
+        {"nome": "Rajada de Vento", "efeito": "1d4 de Dano + Recuo", "usos_dia": 3},
+        {"nome": "Falar com Animais", "efeito": "Sem dano", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Névoa Curativa", "efeito": "1d4 de Cura em área", "usos_dia": 2},
+        {"nome": "Raízes Constritoras", "efeito": "1d6 de Dano + Prende", "usos_dia": 3},
+        {"nome": "Chama Selvagem", "efeito": "1d8 de Dano de Fogo", "usos_dia": 3},
+        {"nome": "Passo de Raposa", "efeito": "+2 Agilidade por 2 turnos", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Vigor da Natureza", "efeito": "1d10 de Cura", "usos_dia": 2},
+        {"nome": "Crescimento de Espinhos", "efeito": "1d8 de Dano em área", "usos_dia": 2},
+        {"nome": "Convocar Relâmpagos", "efeito": "2d6 de Dano Elétrico", "usos_dia": 2},
+        {"nome": "Invocar Enxame", "efeito": "1d6 de Dano contínuo", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Purificar Toxinas", "efeito": "Remove efeitos + 1d6 Cura", "usos_dia": 2},
+        {"nome": "Parede de Vento", "efeito": "Bloqueia projéteis", "usos_dia": 2},
+        {"nome": "Semente Explosiva", "efeito": "2d8 de Dano em área", "usos_dia": 2},
+        {"nome": "Forma Selvagem (Média)", "efeito": "Ganha 2d8 de Vida Temp.", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Cura Acelerada", "efeito": "Regenera 1d4/turno", "usos_dia": 1},
+        {"nome": "Comunhão Terrena", "efeito": "Rastreia inimigos na área", "usos_dia": 2},
+        {"nome": "Esfera Flamejante", "efeito": "3d6 de Dano de Fogo", "usos_dia": 2},
+        {"nome": "Dominar Fera", "efeito": "Controla animal fraco/médio", "usos_dia": 1}
+      ],
+      "6": [
+        {"nome": "Pele de Pedra", "efeito": "+4 Defesa", "usos_dia": 2},
+        {"nome": "Névoa Venenosa", "efeito": "2d6 de Dano de Veneno/turno", "usos_dia": 2},
+        {"nome": "Tempestade de Gelo", "efeito": "3d8 de Dano de Frio", "usos_dia": 1},
+        {"nome": "Forma Selvagem (Grande)", "efeito": "Ganha 3d10 de Vida Temp.", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Cura em Massa", "efeito": "3d8 de Cura em área", "usos_dia": 1},
+        {"nome": "Tremor de Terra", "efeito": "2d10 de Dano + Derruba", "usos_dia": 1},
+        {"nome": "Arma Elemental", "efeito": "Ataques causam +2d8 Dano", "usos_dia": 2},
+        {"nome": "Reencarnação Silvestre", "efeito": "Revive uma planta ou animal", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Aura Vital", "efeito": "Cura 2d6 em aliados/turno", "usos_dia": 1},
+        {"nome": "Casca de Ferro Maior", "efeito": "Ignora 1d10 de dano recebido", "usos_dia": 2},
+        {"nome": "Raio Solar", "efeito": "4d8 de Dano Radiante", "usos_dia": 1},
+        {"nome": "Forma Selvagem (Voadora)", "efeito": "Voo + 4d8 de Vida Temp.", "usos_dia": 2}
+      ],
+      "9": [
+        {"nome": "Ligação Espiritual", "efeito": "Cura 5d10 de um aliado", "usos_dia": 1},
+        {"nome": "Tsunami", "efeito": "5d8 de Dano + Arrasta área", "usos_dia": 1},
+        {"nome": "Tempestade de Chamas", "efeito": "6d6 de Dano de Fogo em área", "usos_dia": 1},
+        {"nome": "Invocar Ent", "efeito": "Invoca Ent com 50 de Vida", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Ressurreição Natural", "efeito": "Revive aliado com 1 PV", "usos_dia": 1},
+        {"nome": "Santuário Verde", "efeito": "Área imune a dano por 1 turno", "usos_dia": 1},
+        {"nome": "Terremoto Maior", "efeito": "8d8 de Dano em área", "usos_dia": 1},
+        {"nome": "Avatar da Natureza", "efeito": "Ataques causam 4d10, dura 3 turnos", "usos_dia": 1}
+      ]
+    },
+    "Guerreiro": {
+      "1": [
+        {"nome": "Golpe Poderoso", "efeito": "1d8 de Dano", "usos_dia": 3},
+        {"nome": "Bloqueio Perfeito", "efeito": "+2 Defesa por 1 turno", "usos_dia": 3},
+        {"nome": "Provocar", "efeito": "Atrai o ataque do alvo para si", "usos_dia": 3},
+        {"nome": "Investida", "efeito": "1d6 de Dano + Aproximação rápida", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Fender Armadura", "efeito": "1d6 de Dano + Reduz Defesa do alvo", "usos_dia": 3},
+        {"nome": "Aura de Bravura", "efeito": "Vantagem contra medo para si e aliados", "usos_dia": 2},
+        {"nome": "Rasteira", "efeito": "1d4 de Dano + Derruba o alvo", "usos_dia": 3},
+        {"nome": "Passo Tático", "efeito": "Movimento extra sem sofrer ataque de oportunidade", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Golpe Amplo", "efeito": "1d8 de Dano em área frontal", "usos_dia": 2},
+        {"nome": "Pele de Aço", "efeito": "Ignora 1d6 de dano recebido", "usos_dia": 2},
+        {"nome": "Grito de Guerra", "efeito": "Aliados ganham +1d4 de Dano por 2 turnos", "usos_dia": 2},
+        {"nome": "Fúria Controlada", "efeito": "+1d6 de Dano nos ataques, mas -2 Defesa", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Ataque Duplo", "efeito": "Garante 2 ataques de 1d6", "usos_dia": 2},
+        {"nome": "Postura Defensiva", "efeito": "+4 Defesa, reduz deslocamento", "usos_dia": 2},
+        {"nome": "Desarmar", "efeito": "1d4 de Dano + Chance de desarmar oponente", "usos_dia": 2},
+        {"nome": "Salto Esmagador", "efeito": "1d8 de Dano em área após um salto alto", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Golpe Crítico Forçado", "efeito": "Garante o dano máximo no dado", "usos_dia": 1},
+        {"nome": "Vitalidade de Batalha", "efeito": "Cura a si mesmo em 2d6 PV", "usos_dia": 2},
+        {"nome": "Intimidação", "efeito": "Causa medo em 1 alvo por 1 turno", "usos_dia": 2},
+        {"nome": "Ataque Relâmpago", "efeito": "Realiza um ataque extra como ação bónus", "usos_dia": 2}
+      ],
+      "6": [
+        {"nome": "Tornado de Lâminas", "efeito": "2d6 de Dano em todos ao redor", "usos_dia": 2},
+        {"nome": "Escudo Impenetrável", "efeito": "Bloqueia 100% de um ataque físico", "usos_dia": 1},
+        {"nome": "Golpe Atordoante", "efeito": "1d8 de Dano + Atordoa o alvo", "usos_dia": 2},
+        {"nome": "Ignorar Dor", "efeito": "Converte 50% do dano em PV temporário", "usos_dia": 1}
+      ],
+      "7": [
+        {"nome": "Execução", "efeito": "3d8 de Dano num alvo com menos de 30% de PV", "usos_dia": 1},
+        {"nome": "Muralha Humana", "efeito": "Recebe o dano no lugar de um aliado", "usos_dia": 2},
+        {"nome": "Comando Tático", "efeito": "Concede 1 ação extra imediata a um aliado", "usos_dia": 1},
+        {"nome": "Investida Devastadora", "efeito": "2d8 de Dano + Empurra o alvo 3m", "usos_dia": 2}
+      ],
+      "8": [
+        {"nome": "Golpe Destruidor", "efeito": "4d6 de Dano contundente", "usos_dia": 1},
+        {"nome": "Regeneração Combativa", "efeito": "Recupera 1d8 de PV por turno durante 3 turnos", "usos_dia": 1},
+        {"nome": "Grito de Terror", "efeito": "Inimigos numa área fogem ou perdem 1 turno", "usos_dia": 1},
+        {"nome": "Inabalável", "efeito": "Imunidade a atordoamento e paralisia", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Ataque em Corrente", "efeito": "Atinge até 3 alvos com 3d6 de Dano", "usos_dia": 1},
+        {"nome": "Resistência Épica", "efeito": "Ignora 2d10 de dano do próximo ataque", "usos_dia": 2},
+        {"nome": "Líder Nato", "efeito": "Aliados ganham +2 em todos os atributos", "usos_dia": 1},
+        {"nome": "Fúria Sanguinária", "efeito": "+3d6 de Dano a cada ataque", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Golpe Meteórico", "efeito": "6d8 de Dano maciço num único alvo", "usos_dia": 1},
+        {"nome": "Avatar da Guerra", "efeito": "Reduz dano recebido a metade por 3 turnos", "usos_dia": 1},
+        {"nome": "Estandarte da Vitória", "efeito": "Revive aliado caído para 1 PV", "usos_dia": 1},
+        {"nome": "Último Suspiro", "efeito": "Se os PV chegarem a 0, resiste com 1 PV e ataca", "usos_dia": 1}
+      ]
+    },
+    "Necromante": {
+      "1": [
+        {"nome": "Invocar Esqueleto", "efeito": "Invoca 1 esqueleto com 10 PV", "usos_dia": 2},
+        {"nome": "Toque Necrótico", "efeito": "1d8 de Dano de Trevas", "usos_dia": 3},
+        {"nome": "Olhar do Pavor", "efeito": "Causa medo, alvo rola com desvantagem", "usos_dia": 3},
+        {"nome": "Raio Enfraquecedor", "efeito": "1d4 de Dano + Reduz Ataque do alvo", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Reanimar Cadáver", "efeito": "Transforma corpo abatido num zumbi", "usos_dia": 2},
+        {"nome": "Dardo de Ossos", "efeito": "1d10 de Dano Perfurante", "usos_dia": 3},
+        {"nome": "Maldição da Lentidão", "efeito": "Reduz o movimento do alvo a metade", "usos_dia": 2},
+        {"nome": "Dreno de Vida", "efeito": "1d6 de Dano, cura 100% desse valor", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Invocar Espírito", "efeito": "Invoca fantasma intangível de 20 PV", "usos_dia": 1},
+        {"nome": "Explosão Cadavérica", "efeito": "Detona um corpo morto, 2d6 de Dano", "usos_dia": 2},
+        {"nome": "Praga Sanguínea", "efeito": "Alvo sofre 1d4 de dano por turno", "usos_dia": 2},
+        {"nome": "Escudo de Ossos", "efeito": "+3 Defesa para si mesmo", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Horda Menor", "efeito": "Invoca 3 esqueletos ou zumbis", "usos_dia": 1},
+        {"nome": "Nuvem Pútrida", "efeito": "2d6 de Dano de Veneno em área", "usos_dia": 2},
+        {"nome": "Cegueira Sombria", "efeito": "Cega 1 alvo por 2 turnos", "usos_dia": 2},
+        {"nome": "Sifão de Alma", "efeito": "2d6 de Dano, partilha a cura", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Cavaleiro da Morte", "efeito": "Invoca morto-vivo de elite com 40 PV", "usos_dia": 1},
+        {"nome": "Raio da Morte", "efeito": "3d6 de Dano de Trevas num único alvo", "usos_dia": 2},
+        {"nome": "Maldição do Envelhecimento", "efeito": "-2 em todos os atributos físicos do alvo", "usos_dia": 1},
+        {"nome": "Passo Espectral", "efeito": "Teletransporte curto através das sombras", "usos_dia": 3}
+      ],
+      "6": [
+        {"nome": "Muralha de Ossos", "efeito": "Cria barreira física que bloqueia projéteis", "usos_dia": 2},
+        {"nome": "Foice da Alma", "efeito": "3d8 de Dano Mágico num cone frontal", "usos_dia": 2},
+        {"nome": "Aura de Decomposição", "efeito": "Inimigos sofrem 1d6 de Dano/turno", "usos_dia": 1},
+        {"nome": "Transferência Vital", "efeito": "Transfere até 3d8 dos teus PV para curar invocação", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Invocar Aparição", "efeito": "Invoca morto-vivo voador que paralisa", "usos_dia": 1},
+        {"nome": "Grito da Banshee", "efeito": "2d10 de Dano Sônico + Surdez em área", "usos_dia": 1},
+        {"nome": "Acorrentar Alma", "efeito": "Paralisa um alvo completamente por 2 turnos", "usos_dia": 1},
+        {"nome": "Pacto Macabro", "efeito": "Sacrifica um morto-vivo para curar 4d8 PV", "usos_dia": 2}
+      ],
+      "8": [
+        {"nome": "Senhor dos Ossos", "efeito": "Funde esqueletos num Golem de Ossos", "usos_dia": 1},
+        {"nome": "Dedo da Morte", "efeito": "4d8 de Dano; se matar, vira zumbi", "usos_dia": 1},
+        {"nome": "Chuva Sangrenta", "efeito": "3d6 de Dano e cura mortos-vivos aliados", "usos_dia": 1},
+        {"nome": "Manto da Escuridão", "efeito": "Invisível e imune a danos físicos", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Exército das Trevas", "efeito": "Invoca 1d4+2 mortos-vivos instantaneamente", "usos_dia": 1},
+        {"nome": "Esfera da Aniquilação", "efeito": "5d8 de Dano de Trevas massivo", "usos_dia": 1},
+        {"nome": "Névoa da Perdição", "efeito": "Escuridão que causa 3d6/turno", "usos_dia": 1},
+        {"nome": "Filactéria Temporária", "efeito": "Revive com 20% dos PV se morrer", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Invocar Dragão Zumbi", "efeito": "Invoca monstro chefe que dura 3 turnos", "usos_dia": 1},
+        {"nome": "Palavra de Poder: Matar", "efeito": "Mata alvo com menos de 50 PV ou 6d10 dano", "usos_dia": 1},
+        {"nome": "Praga Eterna", "efeito": "Inimigos perdem 20% da Vida máxima", "usos_dia": 1},
+        {"nome": "Forma de Lich", "efeito": "Imunidade física, magias sem custo por 3 turnos", "usos_dia": 1}
+      ]
+    },
+    "Ladino": {
+      "1": [
+        {"nome": "Ataque Furtivo", "efeito": "1d8 de Dano extra se tiver vantagem", "usos_dia": 3},
+        {"nome": "Passos Silenciosos", "efeito": "+2 em Furtividade", "usos_dia": 3},
+        {"nome": "Evasão Rápida", "efeito": "+2 Defesa contra 1 ataque", "usos_dia": 3},
+        {"nome": "Lâmina Envenenada", "efeito": "+1d4 Dano de Veneno", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Lançar Facas", "efeito": "1d6 de Dano Perfurante", "usos_dia": 4},
+        {"nome": "Esconder-se nas Sombras", "efeito": "Fica invisível até atacar", "usos_dia": 3},
+        {"nome": "Acrobacia de Combate", "efeito": "Recua 3m sem ataque de oportunidade", "usos_dia": 3},
+        {"nome": "Bomba de Fumo", "efeito": "Bloqueia visão e facilita fuga", "usos_dia": 2}
+      ],
+      "3": [
+        {"nome": "Ponto Fraco", "efeito": "Garante um Acerto Crítico", "usos_dia": 2},
+        {"nome": "Disfarce Rápido", "efeito": "Assume aparência humanoide", "usos_dia": 2},
+        {"nome": "Corrida Sombria", "efeito": "Dobra movimento por 1 turno", "usos_dia": 2},
+        {"nome": "Armadilha de Espinhos", "efeito": "1d8 de Dano e reduz movimento", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Golpe Duplo", "efeito": "Ataca 2x, 1d6 de Dano cada", "usos_dia": 2},
+        {"nome": "Despistar", "efeito": "Cópia ilusória que atrai ataque", "usos_dia": 2},
+        {"nome": "Reflexos Sobrenaturais", "efeito": "Metade do dano em área", "usos_dia": 2},
+        {"nome": "Veneno Paralisante", "efeito": "Alvo perde a próxima ação", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Sangramento Fatal", "efeito": "1d6 de Dano contínuo por 3 turnos", "usos_dia": 2},
+        {"nome": "Ataque às Cegas", "efeito": "Ignora penalizações de visão", "usos_dia": 2},
+        {"nome": "Passo do Vento", "efeito": "Corre pelas paredes/tetos", "usos_dia": 2},
+        {"nome": "Roubo Rápido", "efeito": "Rouba item durante combate", "usos_dia": 2}
+      ],
+      "6": [
+        {"nome": "Assassinato", "efeito": "3d6 de Dano extra em alvo surpreendido", "usos_dia": 1},
+        {"nome": "Invisibilidade Menor", "efeito": "Fica invisível até o fim do turno", "usos_dia": 2},
+        {"nome": "Contra-Ataque Furtivo", "efeito": "Ataca se o inimigo falhar", "usos_dia": 2},
+        {"nome": "Bomba Cegante", "efeito": "Cega inimigos em área pequena", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Dança das Lâminas", "efeito": "Atinge 3 inimigos com 2d6 Dano", "usos_dia": 1},
+        {"nome": "Mestre da Ilusão", "efeito": "Indetetável magicamente", "usos_dia": 1},
+        {"nome": "Teleporte Sombrio", "efeito": "Teletransporte via sombras", "usos_dia": 2},
+        {"nome": "Pó Alucinógeno", "efeito": "Inimigos atacam aleatoriamente", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Golpe Corta-Ventos", "efeito": "Ignora armadura, 3d8 de Dano", "usos_dia": 1},
+        {"nome": "Falso Morto", "efeito": "Finge a morte, perde aggro", "usos_dia": 1},
+        {"nome": "Esquiva Perfeita", "efeito": "Ignora 100% de um ataque", "usos_dia": 1},
+        {"nome": "Toxina Letal", "efeito": "3d6 Dano de Veneno por 2 turnos", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Marca da Morte", "efeito": "Dano de aliados dobrado no alvo", "usos_dia": 1},
+        {"nome": "Caminhante do Abismo", "efeito": "Intangível por 1 turno", "usos_dia": 1},
+        {"nome": "Ação Relâmpago", "efeito": "Ação Principal extra", "usos_dia": 1},
+        {"nome": "Campo de Estrepes Letal", "efeito": "4d6 Dano na área", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Golpe Final", "efeito": "6d8 Dano, executa <10 PV", "usos_dia": 1},
+        {"nome": "Sombra Assassina", "efeito": "Clone de sombras luta ao teu lado", "usos_dia": 1},
+        {"nome": "Intocável", "efeito": "Imunidade física e efeitos", "usos_dia": 1},
+        {"nome": "Mestre dos Venenos", "efeito": "Nuvem tóxica de 5d8 e paralisa", "usos_dia": 1}
+      ]
+    },
+    "Clérigo": {
+      "1": [
+        {"nome": "Curar Ferimentos", "efeito": "1d8 de Cura", "usos_dia": 3},
+        {"nome": "Escudo da Fé", "efeito": "+2 Defesa por 2 turnos", "usos_dia": 3},
+        {"nome": "Chama Sagrada", "efeito": "1d6 Dano Radiante", "usos_dia": 3},
+        {"nome": "Orientação Divina", "efeito": "+1d4 no próximo teste", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Palavra Curativa", "efeito": "1d4 Cura como ação rápida", "usos_dia": 3},
+        {"nome": "Bênção", "efeito": "+1 Ataque/Defesa para 3 aliados", "usos_dia": 2},
+        {"nome": "Golpe Cruzado", "efeito": "+1d6 Dano Radiante na arma", "usos_dia": 3},
+        {"nome": "Expulsar Mortos-Vivos", "efeito": "Mortos-vivos fogem", "usos_dia": 2}
+      ],
+      "3": [
+        {"nome": "Prece Vital", "efeito": "2d8 Cura em alvo", "usos_dia": 2},
+        {"nome": "Arma Espiritual", "efeito": "1d8 Dano de arma flutuante", "usos_dia": 2},
+        {"nome": "Raio Guiado", "efeito": "2d6 Dano Radiante + vantagem", "usos_dia": 2},
+        {"nome": "Zona da Verdade", "efeito": "Inimigos não podem mentir", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Purificar Condição", "efeito": "Cura 1d4 e remove veneno/paralisia", "usos_dia": 2},
+        {"nome": "Proteção contra o Mal", "efeito": "Imunidade a charme e medo", "usos_dia": 2},
+        {"nome": "Fogo Purificador", "efeito": "2d8 Dano Radiante em área", "usos_dia": 2},
+        {"nome": "Comandar", "efeito": "Obriga a obedecer 1 palavra", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Cura em Massa Menor", "efeito": "2d6 Cura em área", "usos_dia": 2},
+        {"nome": "Elo de Proteção", "efeito": "Partilha dano de um aliado", "usos_dia": 1},
+        {"nome": "Guardiões Espirituais", "efeito": "2d6 Dano/turno ao redor", "usos_dia": 1},
+        {"nome": "Cegueira Divina", "efeito": "Cega inimigo", "usos_dia": 2}
+      ],
+      "6": [
+        {"nome": "Revigorar", "efeito": "3d8 Cura em alvo", "usos_dia": 2},
+        {"nome": "Aura de Pureza", "efeito": "Resistência a dano mágico", "usos_dia": 1},
+        {"nome": "Luz Punitiva", "efeito": "3d8 Dano Radiante", "usos_dia": 2},
+        {"nome": "Destruir Mortos-Vivos", "efeito": "Pulveriza <20 PV", "usos_dia": 1}
+      ],
+      "7": [
+        {"nome": "Regeneração Divina", "efeito": "1d8 PV/turno", "usos_dia": 1},
+        {"nome": "Barreira Luminosa", "efeito": "Absorve 30 dano do grupo", "usos_dia": 1},
+        {"nome": "Pilar de Fogo Sagrado", "efeito": "4d8 Dano Radiante/Fogo", "usos_dia": 1},
+        {"nome": "Banimento", "efeito": "Remove inimigo por 2 turnos", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Curar Ferimentos Críticos", "efeito": "5d8 Cura em alvo", "usos_dia": 1},
+        {"nome": "Aura de Coragem", "efeito": "Imunidade a medo e +3 Defesa", "usos_dia": 1},
+        {"nome": "Golpe Divino Maior", "efeito": "+3d8 Dano Radiante físico", "usos_dia": 2},
+        {"nome": "Palavra Sagrada", "efeito": "Atordoa em área", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Restauração Maior", "efeito": "100% PV e remove maldições", "usos_dia": 1},
+        {"nome": "Invocar Celestial", "efeito": "Invoca anjo de 50 PV", "usos_dia": 1},
+        {"nome": "Explosão Solar", "efeito": "6d6 Dano Radiante e cega", "usos_dia": 1},
+        {"nome": "Prisão de Luz", "efeito": "Imobiliza e causa 2d8/turno", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Ressurreição", "efeito": "Revive aliado com 100% PV", "usos_dia": 1},
+        {"nome": "Intervenção Divina", "efeito": "Cura total e +5 atributos para grupo", "usos_dia": 1},
+        {"nome": "Ira dos Deuses", "efeito": "8d8 Dano Radiante massivo", "usos_dia": 1},
+        {"nome": "Aura do Julgamento", "efeito": "Inimigos <20 PV morrem se falharem teste", "usos_dia": 1}
+      ]
+    },
+    "Paladino": {
+      "1": [
+        {"nome": "Punição Divina", "efeito": "+1d8 Dano Radiante", "usos_dia": 3},
+        {"nome": "Escudo da Fé", "efeito": "+2 Defesa", "usos_dia": 3},
+        {"nome": "Imposição das Mãos", "efeito": "Cura 1d10 PV", "usos_dia": 3},
+        {"nome": "Desafio Cativante", "efeito": "Atrai foco do alvo", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Punição Trovejante", "efeito": "+1d6 Dano Trovejante e empurra", "usos_dia": 3},
+        {"nome": "Proteção Divina", "efeito": "Absorve 1d6 de dano", "usos_dia": 3},
+        {"nome": "Bênção Restauradora", "efeito": "Cura 1d8 e +1 no teste", "usos_dia": 3},
+        {"nome": "Sentido Divino", "efeito": "Deteta mal/mortos-vivos", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Lâmina Fulgurante", "efeito": "+2d6 Dano Radiante", "usos_dia": 2},
+        {"nome": "Aura de Devoção", "efeito": "Imunidade a charme", "usos_dia": 2},
+        {"nome": "Purificar Saúde", "efeito": "Cura 1d4 e remove doenças", "usos_dia": 2},
+        {"nome": "Arma Mágica Sagrada", "efeito": "+1 Dano, perfura resistências", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Punição Marcante", "efeito": "+2d6 Dano, anula invisibilidade", "usos_dia": 2},
+        {"nome": "Barreira de Escudos", "efeito": "+4 Defesa imediata", "usos_dia": 2},
+        {"nome": "Vigor Sagrado", "efeito": "2d8 PV temporários", "usos_dia": 2},
+        {"nome": "Corcel Celestial", "efeito": "Invoca montaria de 20 PV", "usos_dia": 1}
+      ],
+      "5": [
+        {"nome": "Golpe Duplo Sagrado", "efeito": "2 ataques no turno", "usos_dia": 2},
+        {"nome": "Aura de Coragem", "efeito": "Imunidade a medo", "usos_dia": 2},
+        {"nome": "Fôlego da Vida", "efeito": "Revive para 1 PV", "usos_dia": 1},
+        {"nome": "Círculo de Poder", "efeito": "Vantagem contra magia", "usos_dia": 1}
+      ],
+      "6": [
+        {"nome": "Punição Escaldante", "efeito": "+3d6 Dano de Fogo contínuo", "usos_dia": 2},
+        {"nome": "Voto de Inimizade", "efeito": "Vantagem nos ataques", "usos_dia": 2},
+        {"nome": "Aura de Vitalidade", "efeito": "Cura 1d6 PV/turno em área", "usos_dia": 1},
+        {"nome": "Expulsar o Mal", "efeito": "Demónios fogem", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Golpe Destruidor", "efeito": "+4d8 Dano Radiante", "usos_dia": 1},
+        {"nome": "Baluarte Místico", "efeito": "Ignora 2d10 dano mágico", "usos_dia": 1},
+        {"nome": "Sacrifício Mártir", "efeito": "Transfere 30 dano de aliado", "usos_dia": 1},
+        {"nome": "Voo Angelical", "efeito": "Ganha voo por 3 turnos", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Punição Banidora", "efeito": "+5d10 Dano e bane", "usos_dia": 1},
+        {"nome": "Aura Sagrada", "efeito": "Inimigos têm desvantagem", "usos_dia": 1},
+        {"nome": "Restauração Completa", "efeito": "Cura 4d10 e limpa penalidades", "usos_dia": 1},
+        {"nome": "Julgamento Inquisidor", "efeito": "Paralisa alvo maligno", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Ira Triunfante", "efeito": "Dano máximo e atordoa", "usos_dia": 1},
+        {"nome": "Muralha de Luz", "efeito": "Barreira gigante, cega", "usos_dia": 1},
+        {"nome": "Onda de Cura Divina", "efeito": "5d8 Cura em área", "usos_dia": 1},
+        {"nome": "Campeão Invencível", "efeito": "Cura 10 PV/turno", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Espada da Vingança", "efeito": "8d8 Dano Radiante", "usos_dia": 1},
+        {"nome": "Avatar da Justiça", "efeito": "Imune a dano físico", "usos_dia": 1},
+        {"nome": "Milagre da Vida", "efeito": "Ressuscita 100% PV", "usos_dia": 1},
+        {"nome": "Glória Eterna", "efeito": "Ataques viram Críticos", "usos_dia": 1}
+      ]
+    },
+    "Bardo": {
+      "1": [
+        {"nome": "Inspirar Aliado", "efeito": "+1d4 em teste/ataque", "usos_dia": 4},
+        {"nome": "Grito Dissonante", "efeito": "1d6 Dano Sónico", "usos_dia": 3},
+        {"nome": "Imagem Menor", "efeito": "Ilusão simples", "usos_dia": 3},
+        {"nome": "Canção Curativa", "efeito": "1d6 Cura", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Canção da Coragem", "efeito": "Vantagem contra medo", "usos_dia": 2},
+        {"nome": "Onda Sonora", "efeito": "1d4 Dano e empurra", "usos_dia": 3},
+        {"nome": "Riso Histérico", "efeito": "Perde turno a rir", "usos_dia": 2},
+        {"nome": "Palavra Encorajadora", "efeito": "1d4 Cura rápida", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Melodia de Batalha", "efeito": "+2 Dano por 2 turnos", "usos_dia": 2},
+        {"nome": "Estrondo", "efeito": "2d6 Dano Sónico", "usos_dia": 2},
+        {"nome": "Sugestão", "efeito": "Obriga a seguir comando", "usos_dia": 2},
+        {"nome": "Canção de Embalar", "efeito": "Adormece inimigos", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Marcha Acelerada", "efeito": "Dobra movimento do grupo", "usos_dia": 2},
+        {"nome": "Sussurros Dolorosos", "efeito": "2d6 Dano Psíquico", "usos_dia": 2},
+        {"nome": "Invisibilidade Menor", "efeito": "Invisibilidade 2 turnos", "usos_dia": 2},
+        {"nome": "Limpar a Mente", "efeito": "Cura 1d4 e limpa charme/medo", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Inspiração Maior", "efeito": "+1d6 num teste", "usos_dia": 3},
+        {"nome": "Lâmina Mental", "efeito": "3d6 Dano Psíquico, ignora armadura", "usos_dia": 2},
+        {"nome": "Padrão Hipnótico", "efeito": "Atordoa em área", "usos_dia": 1},
+        {"nome": "Acordes Vitais", "efeito": "2d8 Cura", "usos_dia": 2}
+      ],
+      "6": [
+        {"nome": "Dança das Espadas", "efeito": "Armas dão +1d6 Dano", "usos_dia": 2},
+        {"nome": "Voz Estrondosa", "efeito": "3d8 Dano Sónico", "usos_dia": 1},
+        {"nome": "Disfarce Ilusório Maior", "efeito": "Altera aparência do grupo", "usos_dia": 1},
+        {"nome": "Canção Revigorante", "efeito": "2d6 PV temporários", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Canção da Celeridade", "efeito": "Ação Extra para aliado", "usos_dia": 1},
+        {"nome": "Explosão Psíquica", "efeito": "4d6 Dano Psíquico em área", "usos_dia": 1},
+        {"nome": "Terreno Ilusório", "efeito": "Modifica terreno", "usos_dia": 1},
+        {"nome": "Escudo Harmónico", "efeito": "Absorve 20 dano", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Hino da Vitória", "efeito": "+3 atributos grupo", "usos_dia": 1},
+        {"nome": "Lamento da Banshee", "efeito": "4d8 Dano Sónico/surdez", "usos_dia": 1},
+        {"nome": "Dança Irresistível", "efeito": "Inimigo gasta turno a dançar", "usos_dia": 1},
+        {"nome": "Cura em Massa", "efeito": "3d8 Cura 4 aliados", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Melodia Épica", "efeito": "Inimigos com desvantagem", "usos_dia": 1},
+        {"nome": "Canção da Perdição", "efeito": "5d8 Dano Psíquico", "usos_dia": 1},
+        {"nome": "Prisão Mental", "efeito": "Imobiliza por 3 turnos", "usos_dia": 1},
+        {"nome": "Ressonância da Vida", "efeito": "Revive instantaneamente 3d8 PV", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Avatar da Arte", "efeito": "Magias sem custo por 2 turnos", "usos_dia": 1},
+        {"nome": "Palavra de Poder: Matar", "efeito": "Mata ou 6d10 Dano", "usos_dia": 1},
+        {"nome": "Fantasma Assassino", "efeito": "Morte por susto", "usos_dia": 1},
+        {"nome": "Sinfonia Eterna", "efeito": "Revive 100% PV", "usos_dia": 1}
+      ]
+    },
+    "Mago": {
+      "1": [
+        {"nome": "Seta de Fogo", "efeito": "1d6 Dano de Fogo", "usos_dia": 4},
+        {"nome": "Raio de Gelo", "efeito": "1d4 Dano e reduz movimento", "usos_dia": 4},
+        {"nome": "Choque Estático", "efeito": "1d6 Dano Elétrico", "usos_dia": 4},
+        {"nome": "Míssil Mágico", "efeito": "1d4+1 Dano inescapável", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Mãos Flamejantes", "efeito": "1d6 Dano em cone", "usos_dia": 3},
+        {"nome": "Armadura Congelada", "efeito": "+2 Defesa, 1d4 contra-ataque", "usos_dia": 3},
+        {"nome": "Passo Elétrico", "efeito": "1d4 Dano + teletransporte", "usos_dia": 3},
+        {"nome": "Escudo Arcano", "efeito": "+3 Defesa", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Raio Ardente", "efeito": "3 raios de 1d6 Dano", "usos_dia": 2},
+        {"nome": "Rajada de Neve", "efeito": "1d8 Dano de Gelo + empurra", "usos_dia": 2},
+        {"nome": "Arco Elétrico", "efeito": "1d8 Dano salta para alvo", "usos_dia": 2},
+        {"nome": "Levitação", "efeito": "Flutua por 2 turnos", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Esfera Flamejante", "efeito": "2d6 Dano de Fogo", "usos_dia": 2},
+        {"nome": "Congelamento", "efeito": "Imobiliza por 1 turno", "usos_dia": 2},
+        {"nome": "Aura de Raios", "efeito": "1d6 Dano/turno área curta", "usos_dia": 2},
+        {"nome": "Invisibilidade", "efeito": "Oculta por 2 turnos", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Bola de Fogo", "efeito": "3d6 Dano de Fogo área", "usos_dia": 2},
+        {"nome": "Tempestade de Gelo", "efeito": "2d8 Dano + terreno difícil", "usos_dia": 2},
+        {"nome": "Relâmpago Direto", "efeito": "3d6 Dano linha reta", "usos_dia": 2},
+        {"nome": "Contramágica", "efeito": "Anula magia inimiga", "usos_dia": 2}
+      ],
+      "6": [
+        {"nome": "Muralha de Fogo", "efeito": "Barreira, 2d6 dano", "usos_dia": 1},
+        {"nome": "Lança de Gelo", "efeito": "3d8 Dano Perfurante", "usos_dia": 2},
+        {"nome": "Corrente de Relâmpagos", "efeito": "2d8 Dano, salta 3 alvos", "usos_dia": 1},
+        {"nome": "Teletransporte Menor", "efeito": "Move até 15m", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Chuva de Meteoros Menor", "efeito": "4d6 Dano Fogo área", "usos_dia": 1},
+        {"nome": "Prisão de Cristal", "efeito": "Prende em gelo, 2d6/turno", "usos_dia": 1},
+        {"nome": "Tempestade Elétrica", "efeito": "3d8 Dano área, atordoa", "usos_dia": 1},
+        {"nome": "Alterar a Realidade", "efeito": "Crítico automático", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Incinerar", "efeito": "4d8 Dano Fogo massivo", "usos_dia": 1},
+        {"nome": "Nevasca Perfeita", "efeito": "4d6 Dano Gelo e cega", "usos_dia": 1},
+        {"nome": "Forma de Relâmpago", "efeito": "Voo e imunidade", "usos_dia": 1},
+        {"nome": "Clone Arcano", "efeito": "Cópia exata com magias", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Dragão de Fogo", "efeito": "Invoca elemental", "usos_dia": 1},
+        {"nome": "Zero Absoluto", "efeito": "5d8 Dano Gelo", "usos_dia": 1},
+        {"nome": "Fúria dos Céus", "efeito": "5d6 Dano Relâmpago em todos", "usos_dia": 1},
+        {"nome": "Parar o Tempo", "efeito": "Ganha 1d4 turnos extra", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Supernova", "efeito": "8d8 Dano em área gigante", "usos_dia": 1},
+        {"nome": "Era Glacial", "efeito": "Congela campo", "usos_dia": 1},
+        {"nome": "Dedo dos Deuses", "efeito": "6d10 Dano Relâmpago concentrado", "usos_dia": 1},
+        {"nome": "Desejo", "efeito": "Reescreve facto / Revive grupo", "usos_dia": 1}
+      ]
+    }
+  }
+}

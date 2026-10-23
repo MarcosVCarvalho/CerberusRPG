@@ -12,23 +12,26 @@ O site será publicado gratuitamente pelo GitHub Pages.
 - **Vite** para criação, execução e compilação do projeto.
 - **JavaScript** para a lógica da aplicação.
 - **HTML e CSS** para estrutura e apresentação.
-- **LocalStorage** para salvar dados no navegador na primeira versão.
+- **Firebase Firestore** (plano gratuito) para guardar as fichas online e sincronizá-las em tempo real.
+- **LocalStorage** apenas para preferências do navegador (mesa atual, mesas recentes).
 - **JSON** para importar e exportar fichas e realizar backups.
 - **GitHub Pages** para hospedar a interface estática.
 
-Não usaremos Laravel, PHP ou um backend na primeira versão. Também não usaremos um banco de dados tradicional inicialmente.
+Não usaremos Laravel, PHP nem um servidor próprio. O Firestore é acessado diretamente pelo navegador, e as regras de segurança ficam em `firestore.rules`.
+
+O Firestore foi escolhido em vez do Supabase porque tem tempo real nativo e o projeto gratuito não é pausado por inatividade. No Supabase gratuito, o projeto é pausado depois de cerca de uma semana sem uso, o que atrapalharia mesas semanais ou quinzenais.
 
 ## 3. Usuários e compartilhamento
 
 O site será acessado pelo criador da campanha e pelos jogadores.
 
-Na primeira versão:
-- Cada navegador terá seu próprio LocalStorage.
-- Os dados salvos no navegador de um jogador **não serão sincronizados automaticamente** com os demais.
-- Fichas poderão ser transferidas entre dispositivos por importação e exportação de arquivos JSON.
-- O catálogo inicial de magias será disponibilizado no próprio projeto e poderá ser consultado por todos os visitantes.
+- As fichas ficam numa **mesa online**. O mestre cria a mesa e compartilha o **link de convite** (`#/mesa/<código>`).
+- **Quem tem o link vê e edita todas as fichas da mesa**, sem login. O código tem 20 caracteres aleatórios e as mesas não podem ser listadas. Se o link vazar, cria-se uma mesa nova.
+- As mudanças aparecem para todos em tempo real, por exemplo a Vida reduzida durante o combate. Cada campo é gravado separadamente, então edições em campos diferentes não se sobrescrevem.
+- Exportar/importar JSON continua disponível para backup e para mover fichas entre mesas.
+- O catálogo de magias é parte estática do site e pode ser consultado por todos, com ou sem mesa.
 
-Se no futuro for necessário compartilhar e atualizar as mesmas fichas em tempo real entre jogadores, será preciso integrar um serviço de armazenamento online, como Supabase ou Firebase. O GitHub Pages poderá continuar hospedando o frontend.
+Se no futuro for necessário restringir quem edita cada ficha (por exemplo, o jogador só edita a própria e o mestre edita todas), dá para adicionar login com Firebase Authentication e ajustar as regras.
 
 ## 4. Ficha de personagem
 
@@ -68,7 +71,7 @@ O componente da ficha deverá preservar o estilo do HTML fornecido.
 ### Comportamento previsto
 - Os campos serão reativos, utilizando `v-model` do Vue.
 - Será possível criar, abrir, editar e excluir fichas.
-- Os dados serão salvos localmente.
+- Os dados serão salvos na mesa online e sincronizados em tempo real.
 - Será possível exportar e importar fichas em JSON.
 - A aplicação deverá funcionar em computador e celular.
 
@@ -91,15 +94,15 @@ A página inicial também terá o título **Grimório RPG**, com o subtítulo �
 
 Haverá uma área própria para o catálogo, separada da ficha.
 
-Funcionalidades planejadas:
-- Lista de magias.
-- Busca por nome.
-- Filtros por categoria, elemento ou nível.
-- Exibição da descrição e dos detalhes de cada magia.
-- Campos previstos para custo, alcance, duração e efeitos.
-- Possibilidade de associar magias a personagens em uma etapa posterior.
+As magias são **separadas por classe** (Druida, Guerreiro, Necromante, Ladino, Clérigo, Paladino, Bardo e Mago). Cada classe tem 10 níveis com 4 magias cada, 320 no total. Cada magia tem nome, efeito e usos por dia.
 
-As magias iniciais ficarão em um arquivo de dados separado, por exemplo `src/data/magias.js`. Na primeira versão, esse catálogo será parte estática do site; mudanças feitas por visitantes não atualizarão o catálogo publicado para os demais.
+Funcionalidades:
+- Uma aba por classe, com as magias agrupadas por nível, e uma aba "Todas".
+- Busca por nome ou efeito, sem diferenciar acentos.
+- Filtro por nível.
+- Associação de magias às fichas, pelo Grimório ou pela própria ficha. Na ficha, o seletor mostra só as magias da classe do personagem quando o campo Classe corresponde a uma classe do catálogo.
+
+Os dados ficam em `src/data/magias-por-classe.json` (classe › nível › magias). Cada magia é identificada por classe + nome. O catálogo é parte estática do site: mudanças feitas por visitantes não atualizam o catálogo publicado para os demais.
 
 ## 7. Estrutura de arquivos
 
@@ -108,6 +111,7 @@ grimorio-rpg/
 ├── .github/workflows/deploy.yml
 ├── src/
 │   ├── components/
+│   │   ├── MesaInicio.vue
 │   │   ├── FichaPersonagem.vue
 │   │   ├── ListaPersonagens.vue
 │   │   ├── ListaMagias.vue
@@ -116,9 +120,13 @@ grimorio-rpg/
 │   │   ├── PersonagensView.vue
 │   │   └── GrimorioView.vue
 │   ├── data/
+│   │   ├── magias-por-classe.json
 │   │   └── magias.js
 │   ├── services/
-│   │   ├── personagensStorage.js
+│   │   ├── firebase.js
+│   │   ├── mesaOnline.js
+│   │   ├── ficha.js
+│   │   ├── preferencias.js
 │   │   └── arquivoJson.js
 │   ├── utils/
 │   │   └── texto.js
@@ -157,23 +165,24 @@ npm run preview   # serve a versão compilada
 
 Implementado (etapas 1 a 9):
 - Ficha recriada a partir das regras visuais da seção 5 (o HTML original não estava disponível), com campos reativos via `v-model`.
-- Várias fichas salvas no LocalStorage, com salvamento automático, busca, criação e exclusão.
+- Mesa online no Firestore com link de convite. As fichas são sincronizadas em tempo real, campo a campo, com busca, criação e exclusão.
+- Aviso para enviar à mesa as fichas da versão antiga (salvas só no navegador).
 - Exportação de uma ficha ou de todas (backup) e importação de JSON, com tratamento de ids repetidos.
-- Catálogo de magias com busca sem acentos e filtros por categoria, elemento e nível. As magias atuais são exemplos.
+- Catálogo de 320 magias separadas por classe (8 classes × 10 níveis), com busca por nome ou efeito e filtro por nível.
 - Associação de magias do catálogo às fichas (campo `magiasIds`), pela ficha ou pelo Grimório.
-- Navegação por hash (`#/personagens`, `#/grimorio`), sem vue-router.
+- Navegação por hash (`#/personagens`, `#/grimorio`, `#/mesa/<código>`), sem vue-router.
 - Workflow do GitHub Actions para publicar no GitHub Pages.
 
-**Pendente:** criar o repositório no GitHub, fazer o push e ativar o Pages (ver README). Também falta trocar as magias de exemplo pelas da campanha.
+**Pendente:** criar o projeto no Firebase, publicar as regras de `firestore.rules`, preencher `src/firebase.config.js` e ativar o GitHub Pages. Ver README.
 
 ## 11. Restrições e cuidados conhecidos
 
-- LocalStorage é específico de cada navegador e dispositivo.
-- Limpar os dados do navegador pode apagar fichas que não tenham backup.
-- Exportar/importar JSON é o mecanismo inicial de transferência e backup.
+- Quem tem o link da mesa pode editar todas as fichas. O link deve ser compartilhado só com o grupo.
+- Fichas excluídas da mesa não podem ser recuperadas sem um backup em JSON.
+- O plano gratuito do Firebase tem limites diários de leituras e gravações, folgados para um grupo de RPG.
 - O GitHub Pages hospeda arquivos estáticos; não executa PHP ou um backend.
-- Não colocar senhas, chaves secretas ou credenciais privadas no frontend.
-- Para autenticação, permissões e sincronização compartilhada, será necessária uma solução adicional no futuro.
+- Não colocar senhas, chaves secretas ou credenciais privadas no frontend. A configuração do Firebase (`firebase.config.js`) é pública por natureza; a proteção vem das regras do Firestore.
+- Para permissões por jogador será preciso adicionar login (Firebase Authentication).
 
 ## 12. Princípio de desenvolvimento
 

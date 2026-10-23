@@ -1,5 +1,6 @@
 <script setup>
-import { ATRIBUTOS } from '../services/personagensStorage.js'
+import { ATRIBUTOS } from '../services/ficha.js'
+import { classes } from '../data/magias.js'
 import SeletorMagias from './SeletorMagias.vue'
 
 // A ficha é editada diretamente (v-model no componente pai).
@@ -50,9 +51,13 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
                 v-model="ficha[campo.chave]"
                 type="text"
                 autocomplete="off"
+                :list="campo.chave === 'classe' ? idCampo('classes') : undefined"
               />
             </div>
           </div>
+          <datalist :id="idCampo('classes')">
+            <option v-for="c in classes" :key="c" :value="c" />
+          </datalist>
         </section>
 
         <section class="caixa">
@@ -77,7 +82,7 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
           <h3 class="caixa__titulo">
             <label :for="idCampo('magiasHabilidades')">Magias e habilidades</label>
           </h3>
-          <SeletorMagias v-model="ficha.magiasIds" />
+          <SeletorMagias v-model="ficha.magiasIds" :classe="ficha.classe" />
           <textarea
             :id="idCampo('magiasHabilidades')"
             v-model="ficha.magiasHabilidades"
