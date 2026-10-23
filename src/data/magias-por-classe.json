@@ -495,6 +495,68 @@
         {"nome": "Dedo dos Deuses", "efeito": "6d10 Dano Relâmpago concentrado", "usos_dia": 1},
         {"nome": "Desejo", "efeito": "Reescreve facto / Revive grupo", "usos_dia": 1}
       ]
+    },
+    "Mago das Sombras": {
+      "1": [
+        {"nome": "Sombra Vigia (Nirael)", "efeito": "Explora até 300m de forma invisível na penumbra e transmite avisos", "usos_dia": 2},
+        {"nome": "Garra das Sombras", "efeito": "1d8 de Dano; impede o alvo de recuperar PV no próximo turno", "usos_dia": 4},
+        {"nome": "Mão de Sombra", "efeito": "Molda energia para mover objetos leves ou acionar mecanismos à distância", "usos_dia": 3},
+        {"nome": "Animação Sombria Incipiente", "efeito": "Força um corpo recente a fazer movimentos simples por 1 minuto", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Passo Sem Eco (Varek)", "efeito": "Move-se sem som por 1 minuto, ganhando vantagem em furtividade", "usos_dia": 3},
+        {"nome": "Golpe da Sombra Guerreira", "efeito": "A tua própria sombra desfere 2d8 de Dano Sombrio", "usos_dia": 2},
+        {"nome": "Fios do Crepúsculo (Otris)", "efeito": "Fios sombrios prendem um alvo a 9m, reduzindo a sua movimentação", "usos_dia": 3},
+        {"nome": "Leitura Residual (Isara)", "efeito": "O Olho Vazio identifica rastros e memórias com até 1 dia num local", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Muralha Umbral (Toran)", "efeito": "Sombra reduz o impacto do primeiro golpe físico recebido no turno", "usos_dia": 3},
+        {"nome": "Ceifador de Sombras", "efeito": "Passiva: Matar um inimigo racional cura o Mago em 1d6 + nível", "usos_dia": 3},
+        {"nome": "Barreira de Sombras", "efeito": "Silhuetas orbitam-te, absorvendo até 10 pontos de dano antes de quebrarem", "usos_dia": 2},
+        {"nome": "Olho Vazio / Leitura Profunda", "efeito": "Lê presenças sombrias e Vestígios Inertes numa área de 9m", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Golpe do Estandarte (Drakar)", "efeito": "Materializa um combatente fugaz que causa 1d8 de Dano", "usos_dia": 3},
+        {"nome": "Lâmina do Vestígio", "efeito": "Ataca de surpresa pelas costas causando 2d6 de Dano Sombrio", "usos_dia": 2},
+        {"nome": "Nó das Almas (Otris II)", "efeito": "Conecta 2 alvos; se um se mover, o outro sofre impacto no movimento", "usos_dia": 2},
+        {"nome": "Captura de Sombra (Rank E/D)", "efeito": "Absorve a alma de um inimigo abatido para as páginas livres do Grimório", "usos_dia": 1}
+      ],
+      "5": [
+        {"nome": "Presságio Silencioso", "efeito": "A sombra avisa-te do perigo, impedindo que sejas surpreendido em combate", "usos_dia": 2},
+        {"nome": "Bastião dos Condenados", "efeito": "Ao bloquear com uma Sombra, devolve 1d8 de Dano ao atacante", "usos_dia": 2},
+        {"nome": "Vínculo do Monarca", "efeito": "Todas as sombras invocadas obedecem sem falhas num raio de 300m", "usos_dia": 1},
+        {"nome": "Memória Deslacrada", "efeito": "Num local de morte, permite fazer 3 perguntas sobre os eventos ocorridos", "usos_dia": 1}
+      ],
+      "6": [
+        {"nome": "Legião de Um Só (Drakar II)", "efeito": "Dois ecos guerreiros flanqueiam um inimigo, dificultando a sua defesa", "usos_dia": 2},
+        {"nome": "Sentença da Sombra Alheia", "efeito": "Atacas a partir da sombra do inimigo, causando 3d6 de Dano", "usos_dia": 2},
+        {"nome": "Trama do Destino", "efeito": "Interrompe por um instante a ação de um inimigo que esteja preso nos teus fios", "usos_dia": 1},
+        {"nome": "Eco da Carne (Mael II)", "efeito": "Reanima um cadáver apenas para repetir um gesto marcante da sua vida", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Invocação: Rank C", "efeito": "Invoca Sombras de oficiais ou magos capturados, com estatísticas médias", "usos_dia": 1},
+        {"nome": "Punho do Além", "efeito": "Evolução da Sombra Guerreira; causa 3d8 de Dano num raio pequeno", "usos_dia": 2},
+        {"nome": "Mil Olhos do Crepúsculo", "efeito": "Partilha a visão da sombra batedora e marca 3 inimigos para rastreio", "usos_dia": 1},
+        {"nome": "Biblioteca dos Mortos", "efeito": "Compara Vestígios para reconstruir uma cena do crime ou emboscada", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Fortaleza do Juramento (Toran III)", "efeito": "A Sombra defensora transfere para si metade do dano sofrido por um aliado", "usos_dia": 2},
+        {"nome": "Campo da Última Guerra", "efeito": "Marca uma área onde espectros aliados ganham vantagem e inimigos lentidão", "usos_dia": 1},
+        {"nome": "Barreira Absoluta", "efeito": "Manto de Resquícios que ignora 100% de um ataque físico, mas falha contra luz", "usos_dia": 1},
+        {"nome": "Aprimoramento por Ecos", "efeito": "Consome Ecos Inertes do Grimório para anular a fraqueza à luz de uma sombra por 3 turnos", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Invocação: Rank B/A", "efeito": "Materializa generais ou campeões capturados, de alto dano", "usos_dia": 1},
+        {"nome": "Tempestade de Vestígios", "efeito": "Detona dezenas de almas absorvidas causando 5d6 de Dano em área", "usos_dia": 1},
+        {"nome": "Fios do Abismo", "efeito": "Fios prendem até 3 inimigos; cada um perde 1d8 PV/turno para curar o Mago", "usos_dia": 1},
+        {"nome": "Limiar da Segunda Voz", "efeito": "Corpo reanimado dá uma resposta perfeita da fronteira entre o Vestígio e a consciência", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Primordiais (Rank S)", "efeito": "Liberta o domínio final de lendas originais do Grimório por 3 turnos", "usos_dia": 1},
+        {"nome": "Foice do Monarca", "efeito": "6d10 de Dano Sombrio; se matar um inimigo humanoide, a sua Sombra é capturada instantaneamente", "usos_dia": 1},
+        {"nome": "Exército do Crepúsculo", "efeito": "Invoca 3 sombras de uma só vez para lutarem ao teu lado por 2 turnos", "usos_dia": 1},
+        {"nome": "Reencarnação do Grimório", "efeito": "Se chegares a 0 PV, o Grimório consome Ecos Inertes e revive-te de imediato com 50% dos PV", "usos_dia": 1}
+      ]
     }
   }
 }
