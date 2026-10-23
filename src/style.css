@@ -1,0 +1,141 @@
+:root {
+  --fundo: #e9e5df;
+  --pergaminho: #fdfaf6;
+  --tinta: #2c1a0c;
+  --tinta-suave: #6b5442;
+  --caixa: #ffffff;
+  --destaque: #7a2e1a;
+  --linha: #b8a99a;
+  --perigo: #9b2226;
+  --borda: 3px solid var(--tinta);
+  --raio: 12px;
+  --fonte: Georgia, 'Times New Roman', serif;
+
+  font-family: var(--fonte);
+  color: var(--tinta);
+  background: var(--fundo);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--fundo);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte);
+  margin: 0;
+  line-height: 1.2;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* Botões */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.45em 0.9em;
+  border: 2px solid var(--tinta);
+  border-radius: 8px;
+  background: var(--caixa);
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.botao:hover {
+  background: var(--pergaminho);
+}
+
+.botao:focus-visible,
+.campo:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+.botao:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.botao--primario {
+  background: var(--tinta);
+  color: var(--pergaminho);
+}
+
+.botao--primario:hover {
+  background: #4a2e18;
+}
+
+.botao--perigo {
+  border-color: var(--perigo);
+  color: var(--perigo);
+}
+
+.botao--pequeno {
+  padding: 0.2em 0.6em;
+  font-size: 0.85rem;
+}
+
+/* Campos de formulário em caixa (busca, filtros) */
+.campo {
+  width: 100%;
+  padding: 0.45em 0.7em;
+  border: 2px solid var(--tinta);
+  border-radius: 8px;
+  background: var(--caixa);
+}
+
+/* Painel padrão em pergaminho */
+.painel {
+  background: var(--pergaminho);
+  border: var(--borda);
+  border-radius: var(--raio);
+  padding: 1rem;
+}
+
+.aviso {
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+  font-style: italic;
+}
+
+.mensagem {
+  padding: 0.6em 0.9em;
+  border-radius: 8px;
+  border: 2px solid var(--tinta);
+  background: var(--caixa);
+  margin-bottom: 1rem;
+}
+
+.mensagem--erro {
+  border-color: var(--perigo);
+  color: var(--perigo);
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
