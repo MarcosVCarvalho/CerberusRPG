@@ -2,7 +2,9 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import PersonagensView from './views/PersonagensView.vue'
 import GrimorioView from './views/GrimorioView.vue'
+import RegrasView from './views/RegrasView.vue'
 import MesaInicio from './components/MesaInicio.vue'
+import RoladorDados from './components/RoladorDados.vue'
 import { firebaseConfigurado } from './services/firebase.js'
 import { linkDaMesa, obterMesa } from './services/mesaOnline.js'
 import {
@@ -13,10 +15,11 @@ import {
   sairDaMesa,
 } from './services/preferencias.js'
 
-// Navegação por hash: #/personagens, #/grimorio e #/mesa/<código> (link de convite).
+// Navegação por hash: #/personagens, #/grimorio, #/regras e #/mesa/<código> (link de convite).
 const rotas = {
   personagens: 'Personagens',
   grimorio: 'Grimório de magias',
+  regras: 'Regras',
 }
 
 const rotaAtual = ref('personagens')
@@ -132,11 +135,14 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', lerHash))
         <MesaInicio v-else :aviso="avisoMesa" @entrar="entrar" />
       </template>
       <GrimorioView
-        v-else
+        v-else-if="rotaAtual === 'grimorio'"
         :key="mesaAtualId ?? 'sem-mesa'"
         :mesa-id="firebaseConfigurado ? mesaAtualId : null"
       />
+      <RegrasView v-else />
     </main>
+
+    <RoladorDados />
 
     <footer class="rodape">
       As fichas ficam na mesa online e todos com o link de convite podem ver e editar. Use
@@ -217,7 +223,8 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', lerHash))
 }
 
 .rodape {
-  margin-top: 2.5rem;
+  /* Espaço extra para o botão flutuante de dados não cobrir o texto. */
+  margin: 2.5rem 0 3rem;
   text-align: center;
   font-size: 0.8rem;
   font-style: italic;

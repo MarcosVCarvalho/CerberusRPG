@@ -27,7 +27,7 @@ O site será acessado pelo criador da campanha e pelos jogadores.
 
 - As fichas ficam numa **mesa online**. O mestre cria a mesa e compartilha o **link de convite** (`#/mesa/<código>`).
 - **Quem tem o link vê e edita todas as fichas da mesa**, sem login. O código tem 20 caracteres aleatórios e as mesas não podem ser listadas. Se o link vazar, cria-se uma mesa nova.
-- As mudanças aparecem para todos em tempo real, por exemplo a Vida reduzida durante o combate. Cada campo é gravado separadamente, então edições em campos diferentes não se sobrescrevem.
+- As mudanças aparecem para todos em tempo real, por exemplo o PV reduzido durante o combate. Cada campo é gravado separadamente, então edições em campos diferentes não se sobrescrevem.
 - Exportar/importar JSON continua disponível para backup e para mover fichas entre mesas.
 - O catálogo de magias é parte estática do site e pode ser consultado por todos, com ou sem mesa.
 
@@ -42,13 +42,18 @@ O componente da ficha deverá preservar o estilo do HTML fornecido.
 - Nome do personagem
 - Raça
 - Classe
+- Afiliação
 - Nível
 - Dinheiro
 - Idade
 - Gênero
 
+### Vida e origem
+- PV atual, editável, e PV máximo, calculado pela raça, classe e nível (regras do Livro de Regras em `src/data/regras.js`).
+- Tamanho, movimento e traço da raça, e tema e atributo da afiliação, quando o texto do campo corresponde ao catálogo.
+- Fichas da versão 1 guardavam os PV no atributo "Vida"; ao abrir, esse valor passa para o PV atual.
+
 ### Atributos
-- Vida
 - Ataque
 - Defesa
 - Agilidade
@@ -94,15 +99,23 @@ A página inicial também terá o título **Grimório RPG**, com o subtítulo �
 
 Haverá uma área própria para o catálogo, separada da ficha.
 
-As magias são **separadas por classe** (Druida, Guerreiro, Necromante, Ladino, Clérigo, Paladino, Bardo e Mago). Cada classe tem 10 níveis com 4 magias cada, 320 no total. Cada magia tem nome, efeito e usos por dia.
+As magias são **separadas por classe** (Druida, Guerreiro, Necromante, Ladino, Clérigo, Paladino, Bardo, Mago, Bárbaro e Patrulheiro). Cada classe tem 10 níveis com 4 magias cada, 400 no total. Cada magia tem nome, efeito e usos por dia.
+
+As **afiliações** (Pacto do Sangue Carmesim, Sindicato da Máscara de Prata, A Chama Inquisidora, Herança Licantropa, Confraria do Mecanismo, Mago das Sombras e Domínio da Luz) têm uma habilidade nos níveis 1, 3, 5, 7 e 9, 35 no total. Habilidades passivas não têm usos por dia.
 
 Funcionalidades:
-- Uma aba por classe, com as magias agrupadas por nível, e uma aba "Todas".
+- Uma aba por classe e por afiliação, com as magias agrupadas por nível, e uma aba "Todas".
 - Busca por nome ou efeito, sem diferenciar acentos.
 - Filtro por nível.
-- Associação de magias às fichas, pelo Grimório ou pela própria ficha. Na ficha, o seletor mostra só as magias da classe do personagem quando o campo Classe corresponde a uma classe do catálogo.
+- Associação de magias às fichas, pelo Grimório ou pela própria ficha. Na ficha, o seletor mostra só as magias da classe e da afiliação do personagem quando os campos Classe e Afiliação correspondem ao catálogo.
 
-Os dados ficam em `src/data/magias-por-classe.json` (classe › nível › magias). Cada magia é identificada por classe + nome. O catálogo é parte estática do site: mudanças feitas por visitantes não atualizam o catálogo publicado para os demais.
+Os dados ficam em `src/data/magias-por-classe.json` (classe › nível › magias) e `src/data/afiliacoes.json` (afiliação › nível › habilidades). Cada magia é identificada por classe ou afiliação + nome. O catálogo é parte estática do site: mudanças feitas por visitantes não atualizam o catálogo publicado para os demais.
+
+## 6.1. Rolador de dados e regras
+
+- **Rolador de dados:** botão flutuante "🎲 Dados" em todas as abas, com d4, d6, d8, d10, d12, d20 e d100, quantidade, modificador e vantagem ou desvantagem para um único d20. As rolagens ficam só no navegador de quem rolou (não vão para a mesa) e o histórico dura até a página ser recarregada.
+- **Rolar pela ficha:** o botão 🎲 de cada atributo rola 1d20 + atributo com o nome do personagem.
+- **Aba Regras (`#/regras`):** o Livro de Regras dentro do site, com índice por seção. O texto fica em `src/data/livro-de-regras.md`, uma cópia do documento do livro que precisa ser atualizada quando ele mudar.
 
 ## 7. Estrutura de arquivos
 
@@ -115,14 +128,20 @@ grimorio-rpg/
 │   │   ├── FichaPersonagem.vue
 │   │   ├── ListaPersonagens.vue
 │   │   ├── ListaMagias.vue
+│   │   ├── RoladorDados.vue
 │   │   └── SeletorMagias.vue
 │   ├── views/
 │   │   ├── PersonagensView.vue
-│   │   └── GrimorioView.vue
+│   │   ├── GrimorioView.vue
+│   │   └── RegrasView.vue
 │   ├── data/
 │   │   ├── magias-por-classe.json
-│   │   └── magias.js
+│   │   ├── afiliacoes.json
+│   │   ├── livro-de-regras.md
+│   │   ├── magias.js
+│   │   └── regras.js
 │   ├── services/
+│   │   ├── dados.js
 │   │   ├── firebase.js
 │   │   ├── mesaOnline.js
 │   │   ├── ficha.js
@@ -168,7 +187,7 @@ Implementado (etapas 1 a 9):
 - Mesa online no Firestore com link de convite. As fichas são sincronizadas em tempo real, campo a campo, com busca, criação e exclusão.
 - Aviso para enviar à mesa as fichas da versão antiga (salvas só no navegador).
 - Exportação de uma ficha ou de todas (backup) e importação de JSON, com tratamento de ids repetidos.
-- Catálogo de 320 magias separadas por classe (8 classes × 10 níveis), com busca por nome ou efeito e filtro por nível.
+- Catálogo de 400 magias separadas por classe (10 classes × 10 níveis) e 35 habilidades de afiliação, com busca por nome ou efeito e filtro por nível.
 - Associação de magias do catálogo às fichas (campo `magiasIds`), pela ficha ou pelo Grimório.
 - Navegação por hash (`#/personagens`, `#/grimorio`, `#/mesa/<código>`), sem vue-router.
 - Workflow do GitHub Actions para publicar no GitHub Pages.

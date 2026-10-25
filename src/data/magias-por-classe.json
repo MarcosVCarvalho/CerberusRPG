@@ -496,66 +496,128 @@
         {"nome": "Desejo", "efeito": "Reescreve facto / Revive grupo", "usos_dia": 1}
       ]
     },
-    "Mago das Sombras": {
+    "Bárbaro": {
       "1": [
-        {"nome": "Sombra Vigia (Nirael)", "efeito": "Explora até 300m de forma invisível na penumbra e transmite avisos", "usos_dia": 2},
-        {"nome": "Garra das Sombras", "efeito": "1d8 de Dano; impede o alvo de recuperar PV no próximo turno", "usos_dia": 4},
-        {"nome": "Mão de Sombra", "efeito": "Molda energia para mover objetos leves ou acionar mecanismos à distância", "usos_dia": 3},
-        {"nome": "Animação Sombria Incipiente", "efeito": "Força um corpo recente a fazer movimentos simples por 1 minuto", "usos_dia": 3}
+        {"nome": "Fúria", "efeito": "Por 3 turnos: +2 de Dano e sofre metade do dano físico", "usos_dia": 2},
+        {"nome": "Golpe Selvagem", "efeito": "1d10 de Dano", "usos_dia": 3},
+        {"nome": "Rugido Intimidador", "efeito": "Inimigos adjacentes ficam Amedrontados por 1 turno", "usos_dia": 2},
+        {"nome": "Arremesso Brutal", "efeito": "1d8 de Dano com a arma ou um objeto pesado a até 6 Quadrados", "usos_dia": 3}
       ],
       "2": [
-        {"nome": "Passo Sem Eco (Varek)", "efeito": "Move-se sem som por 1 minuto, ganhando vantagem em furtividade", "usos_dia": 3},
-        {"nome": "Golpe da Sombra Guerreira", "efeito": "A tua própria sombra desfere 2d8 de Dano Sombrio", "usos_dia": 2},
-        {"nome": "Fios do Crepúsculo (Otris)", "efeito": "Fios sombrios prendem um alvo a 9m, reduzindo a sua movimentação", "usos_dia": 3},
-        {"nome": "Leitura Residual (Isara)", "efeito": "O Olho Vazio identifica rastros e memórias com até 1 dia num local", "usos_dia": 3}
+        {"nome": "Investida Imprudente", "efeito": "Corre até 6 Quadrados e ataca: 1d8 de Dano; ataques contra o Bárbaro têm vantagem até o próximo turno", "usos_dia": 3},
+        {"nome": "Agarrão", "efeito": "Prende um alvo adjacente até ele se soltar", "usos_dia": 3},
+        {"nome": "Pancada Atordoante", "efeito": "1d6 de Dano + Atordoa o alvo se falhar num teste de Defesa", "usos_dia": 2},
+        {"nome": "Sentidos Selvagens", "efeito": "Vantagem na Iniciativa e não pode ser surpreendido por 1 hora", "usos_dia": 2}
       ],
       "3": [
-        {"nome": "Muralha Umbral (Toran)", "efeito": "Sombra reduz o impacto do primeiro golpe físico recebido no turno", "usos_dia": 3},
-        {"nome": "Ceifador de Sombras", "efeito": "Passiva: Matar um inimigo racional cura o Mago em 1d6 + nível", "usos_dia": 3},
-        {"nome": "Barreira de Sombras", "efeito": "Silhuetas orbitam-te, absorvendo até 10 pontos de dano antes de quebrarem", "usos_dia": 2},
-        {"nome": "Olho Vazio / Leitura Profunda", "efeito": "Lê presenças sombrias e Vestígios Inertes numa área de 9m", "usos_dia": 2}
+        {"nome": "Golpe Giratório", "efeito": "1d8 de Dano em todos os inimigos adjacentes", "usos_dia": 2},
+        {"nome": "Sede de Batalha", "efeito": "Ao abater um inimigo, recupera 1d8 PV", "usos_dia": 3},
+        {"nome": "Esmagar Escudo", "efeito": "1d8 de Dano + Alvo perde o bônus do escudo por 2 turnos", "usos_dia": 2},
+        {"nome": "Salto da Montanha", "efeito": "Salta até 4 Quadrados ignorando Terreno Difícil e ataca: 1d8 de Dano", "usos_dia": 2}
       ],
       "4": [
-        {"nome": "Golpe do Estandarte (Drakar)", "efeito": "Materializa um combatente fugaz que causa 1d8 de Dano", "usos_dia": 3},
-        {"nome": "Lâmina do Vestígio", "efeito": "Ataca de surpresa pelas costas causando 2d6 de Dano Sombrio", "usos_dia": 2},
-        {"nome": "Nó das Almas (Otris II)", "efeito": "Conecta 2 alvos; se um se mover, o outro sofre impacto no movimento", "usos_dia": 2},
-        {"nome": "Captura de Sombra (Rank E/D)", "efeito": "Absorve a alma de um inimigo abatido para as páginas livres do Grimório", "usos_dia": 1}
+        {"nome": "Ataque Imprudente", "efeito": "Ataque com vantagem e +1d6 de Dano; ataques contra o Bárbaro têm vantagem por 1 turno", "usos_dia": 3},
+        {"nome": "Pisotear", "efeito": "1d8 de Dano + Recuo de 2 Quadrados", "usos_dia": 2},
+        {"nome": "Fúria Resistente", "efeito": "Durante a Fúria, ignora Amedrontado e Atordoado", "usos_dia": 2},
+        {"nome": "Sangue Quente", "efeito": "Cura a si mesmo em 2d6 PV", "usos_dia": 2}
       ],
       "5": [
-        {"nome": "Presságio Silencioso", "efeito": "A sombra avisa-te do perigo, impedindo que sejas surpreendido em combate", "usos_dia": 2},
-        {"nome": "Bastião dos Condenados", "efeito": "Ao bloquear com uma Sombra, devolve 1d8 de Dano ao atacante", "usos_dia": 2},
-        {"nome": "Vínculo do Monarca", "efeito": "Todas as sombras invocadas obedecem sem falhas num raio de 300m", "usos_dia": 1},
-        {"nome": "Memória Deslacrada", "efeito": "Num local de morte, permite fazer 3 perguntas sobre os eventos ocorridos", "usos_dia": 1}
+        {"nome": "Golpe Demolidor", "efeito": "2d10 de Dano", "usos_dia": 2},
+        {"nome": "Ira Inabalável", "efeito": "Ao chegar a 0 PV durante a Fúria, fica com 1 PV", "usos_dia": 1},
+        {"nome": "Uivo de Guerra", "efeito": "Aliados a até 6 Quadrados ganham +1d4 de Dano por 2 turnos", "usos_dia": 2},
+        {"nome": "Arremesso de Inimigo", "efeito": "Arremessa um alvo Médio ou menor a até 4 Quadrados: 1d8 de Dano nele e em quem for atingido", "usos_dia": 2}
       ],
       "6": [
-        {"nome": "Legião de Um Só (Drakar II)", "efeito": "Dois ecos guerreiros flanqueiam um inimigo, dificultando a sua defesa", "usos_dia": 2},
-        {"nome": "Sentença da Sombra Alheia", "efeito": "Atacas a partir da sombra do inimigo, causando 3d6 de Dano", "usos_dia": 2},
-        {"nome": "Trama do Destino", "efeito": "Interrompe por um instante a ação de um inimigo que esteja preso nos teus fios", "usos_dia": 1},
-        {"nome": "Eco da Carne (Mael II)", "efeito": "Reanima um cadáver apenas para repetir um gesto marcante da sua vida", "usos_dia": 2}
+        {"nome": "Golpe Sísmico", "efeito": "2d8 de Dano numa área de 3 × 3 Quadrados ao redor", "usos_dia": 2},
+        {"nome": "Fúria Implacável", "efeito": "Por 3 turnos, regenera 5 PV no início de cada turno", "usos_dia": 1},
+        {"nome": "Quebra-Ossos", "efeito": "2d6 de Dano + Alvo perde 2 Quadrados de movimento por 2 turnos", "usos_dia": 2},
+        {"nome": "Grito Ensurdecedor", "efeito": "Inimigos a até 4 Quadrados fazem teste de Defesa ou ficam Atordoados", "usos_dia": 1}
       ],
       "7": [
-        {"nome": "Invocação: Rank C", "efeito": "Invoca Sombras de oficiais ou magos capturados, com estatísticas médias", "usos_dia": 1},
-        {"nome": "Punho do Além", "efeito": "Evolução da Sombra Guerreira; causa 3d8 de Dano num raio pequeno", "usos_dia": 2},
-        {"nome": "Mil Olhos do Crepúsculo", "efeito": "Partilha a visão da sombra batedora e marca 3 inimigos para rastreio", "usos_dia": 1},
-        {"nome": "Biblioteca dos Mortos", "efeito": "Compara Vestígios para reconstruir uma cena do crime ou emboscada", "usos_dia": 1}
+        {"nome": "Golpe Titânico", "efeito": "3d10 de Dano", "usos_dia": 2},
+        {"nome": "Pele de Pedra", "efeito": "+3 Defesa por 3 turnos", "usos_dia": 2},
+        {"nome": "Massacre", "efeito": "2d10 de Dano em cada inimigo adjacente", "usos_dia": 1},
+        {"nome": "Caçada Sangrenta", "efeito": "Marca um alvo: os ataques do Bárbaro contra ele causam +1d8 de Dano até ele cair", "usos_dia": 1}
       ],
       "8": [
-        {"nome": "Fortaleza do Juramento (Toran III)", "efeito": "A Sombra defensora transfere para si metade do dano sofrido por um aliado", "usos_dia": 2},
-        {"nome": "Campo da Última Guerra", "efeito": "Marca uma área onde espectros aliados ganham vantagem e inimigos lentidão", "usos_dia": 1},
-        {"nome": "Barreira Absoluta", "efeito": "Manto de Resquícios que ignora 100% de um ataque físico, mas falha contra luz", "usos_dia": 1},
-        {"nome": "Aprimoramento por Ecos", "efeito": "Consome Ecos Inertes do Grimório para anular a fraqueza à luz de uma sombra por 3 turnos", "usos_dia": 1}
+        {"nome": "Avalanche", "efeito": "Investida numa linha de 6 Quadrados: 3d8 de Dano em todos no caminho", "usos_dia": 1},
+        {"nome": "Fúria Eterna", "efeito": "A próxima Fúria dura até o fim do combate", "usos_dia": 1},
+        {"nome": "Rugido do Titã", "efeito": "Inimigos a até 6 Quadrados ficam Amedrontados por 2 turnos", "usos_dia": 1},
+        {"nome": "Recusa em Cair", "efeito": "Cura a si mesmo em 4d8 PV", "usos_dia": 1}
       ],
       "9": [
-        {"nome": "Invocação: Rank B/A", "efeito": "Materializa generais ou campeões capturados, de alto dano", "usos_dia": 1},
-        {"nome": "Tempestade de Vestígios", "efeito": "Detona dezenas de almas absorvidas causando 5d6 de Dano em área", "usos_dia": 1},
-        {"nome": "Fios do Abismo", "efeito": "Fios prendem até 3 inimigos; cada um perde 1d8 PV/turno para curar o Mago", "usos_dia": 1},
-        {"nome": "Limiar da Segunda Voz", "efeito": "Corpo reanimado dá uma resposta perfeita da fronteira entre o Vestígio e a consciência", "usos_dia": 1}
+        {"nome": "Destruidor de Muralhas", "efeito": "5d10 de Dano num único alvo", "usos_dia": 1},
+        {"nome": "Fúria Ancestral", "efeito": "Por 3 turnos: +4 de Dano e sofre metade do dano de todas as fontes", "usos_dia": 1},
+        {"nome": "Terremoto", "efeito": "4d8 de Dano numa área de 5 × 5 Quadrados; todos ficam Presos por 1 turno", "usos_dia": 1},
+        {"nome": "Espírito Indomável", "efeito": "Por 3 turnos, não pode cair abaixo de 1 PV", "usos_dia": 1}
       ],
       "10": [
-        {"nome": "Primordiais (Rank S)", "efeito": "Liberta o domínio final de lendas originais do Grimório por 3 turnos", "usos_dia": 1},
-        {"nome": "Foice do Monarca", "efeito": "6d10 de Dano Sombrio; se matar um inimigo humanoide, a sua Sombra é capturada instantaneamente", "usos_dia": 1},
-        {"nome": "Exército do Crepúsculo", "efeito": "Invoca 3 sombras de uma só vez para lutarem ao teu lado por 2 turnos", "usos_dia": 1},
-        {"nome": "Reencarnação do Grimório", "efeito": "Se chegares a 0 PV, o Grimório consome Ecos Inertes e revive-te de imediato com 50% dos PV", "usos_dia": 1}
+        {"nome": "Golpe do Fim", "efeito": "6d10 de Dano", "usos_dia": 1},
+        {"nome": "Avatar da Fúria", "efeito": "Por 3 turnos: fica Grande, +6 de Dano e +4 Quadrados de movimento", "usos_dia": 1},
+        {"nome": "Grito Primordial", "efeito": "Inimigos a até 10 Quadrados sofrem 4d10 de Dano e ficam Atordoados", "usos_dia": 1},
+        {"nome": "Última Batalha", "efeito": "Ao chegar a 0 PV, volta com 50% dos PV e entra em Fúria", "usos_dia": 1}
+      ]
+    },
+    "Patrulheiro": {
+      "1": [
+        {"nome": "Tiro Certeiro", "efeito": "1d8 de Dano à distância, com vantagem no acerto", "usos_dia": 3},
+        {"nome": "Marca do Caçador", "efeito": "Marca um alvo: os ataques do Patrulheiro contra ele causam +1d4 de Dano por 1 hora", "usos_dia": 2},
+        {"nome": "Rastrear", "efeito": "Segue rastros de até 1 dia, com vantagem em Percepção", "usos_dia": 3},
+        {"nome": "Tiro Duplo", "efeito": "2 ataques de 1d4 de Dano", "usos_dia": 3}
+      ],
+      "2": [
+        {"nome": "Flecha Prendedora", "efeito": "1d6 de Dano + Prende o alvo", "usos_dia": 3},
+        {"nome": "Recuar e Disparar", "efeito": "Afasta-se 3 Quadrados sem Ataque de Oportunidade e dispara: 1d6 de Dano", "usos_dia": 3},
+        {"nome": "Companheiro Animal", "efeito": "Um lobo ou falcão luta ao lado do Patrulheiro por 1 hora: 1d6 de Dano por turno", "usos_dia": 1},
+        {"nome": "Camuflagem", "efeito": "Vantagem em Furtividade em ambientes naturais por 10 minutos", "usos_dia": 3}
+      ],
+      "3": [
+        {"nome": "Chuva de Flechas", "efeito": "1d8 de Dano numa área de 3 × 3 Quadrados", "usos_dia": 2},
+        {"nome": "Tiro no Joelho", "efeito": "1d6 de Dano + Alvo perde 3 Quadrados de movimento por 2 turnos", "usos_dia": 3},
+        {"nome": "Armadilha de Caça", "efeito": "Quem pisar na armadilha fica Preso e sofre 1d8 de Dano", "usos_dia": 2},
+        {"nome": "Olho de Águia", "efeito": "Dobra o alcance da arma por 3 turnos", "usos_dia": 2}
+      ],
+      "4": [
+        {"nome": "Flecha Perfurante", "efeito": "2d6 de Dano numa linha de 8 Quadrados", "usos_dia": 2},
+        {"nome": "Tiro Cegante", "efeito": "1d6 de Dano + Alvo fica Cego por 1 turno", "usos_dia": 2},
+        {"nome": "Passo do Vento", "efeito": "+3 Quadrados de movimento e ignora Terreno Difícil por 3 turnos", "usos_dia": 2},
+        {"nome": "Ervas Medicinais", "efeito": "Cura um aliado em 2d6 PV", "usos_dia": 2}
+      ],
+      "5": [
+        {"nome": "Disparo Mortal", "efeito": "2d10 de Dano à distância", "usos_dia": 2},
+        {"nome": "Saraivada", "efeito": "3 ataques de 1d6 de Dano em alvos diferentes", "usos_dia": 2},
+        {"nome": "Fuga Rápida", "efeito": "Como Reação, ao ser atacado corpo a corpo, afasta-se 4 Quadrados", "usos_dia": 2},
+        {"nome": "Inimigo Jurado", "efeito": "Escolhe um tipo de criatura: +1d6 de Dano contra ela até o próximo Descanso Longo", "usos_dia": 1}
+      ],
+      "6": [
+        {"nome": "Flecha Explosiva", "efeito": "2d8 de Dano numa área de 3 × 3 Quadrados", "usos_dia": 2},
+        {"nome": "Tiro Atordoante", "efeito": "1d8 de Dano + Atordoa o alvo se falhar num teste de Defesa", "usos_dia": 2},
+        {"nome": "Fantasma da Floresta", "efeito": "Fica invisível em ambientes naturais até atacar", "usos_dia": 1},
+        {"nome": "Fúria da Matilha", "efeito": "O Companheiro Animal ataca 2 vezes por turno durante 3 turnos", "usos_dia": 2}
+      ],
+      "7": [
+        {"nome": "Tiro de Precisão", "efeito": "3d10 de Dano; acerto crítico com 19 ou 20", "usos_dia": 1},
+        {"nome": "Chuva de Aço", "efeito": "2d10 de Dano numa área de 4 × 4 Quadrados", "usos_dia": 1},
+        {"nome": "Flecha Rastreadora", "efeito": "Acerta automaticamente um alvo marcado, mesmo escondido: 2d8 de Dano", "usos_dia": 2},
+        {"nome": "Sentidos do Caçador", "efeito": "Não pode ser surpreendido e vê criaturas invisíveis por 1 minuto", "usos_dia": 1}
+      ],
+      "8": [
+        {"nome": "Lança-Trovão", "efeito": "4d8 de Dano numa linha de 12 Quadrados", "usos_dia": 1},
+        {"nome": "Tiro Triplo", "efeito": "3 ataques de 2d6 de Dano", "usos_dia": 1},
+        {"nome": "Rei da Matilha", "efeito": "Invoca 3 lobos por 3 turnos: 1d8 de Dano cada um", "usos_dia": 1},
+        {"nome": "Abrigo Selvagem", "efeito": "Aliados num raio de 4 Quadrados recuperam 3d6 PV", "usos_dia": 1}
+      ],
+      "9": [
+        {"nome": "Tempestade de Flechas", "efeito": "5d8 de Dano numa área de 5 × 5 Quadrados", "usos_dia": 1},
+        {"nome": "Execução", "efeito": "Contra um alvo com menos de 25% dos PV, o próximo acerto causa dano dobrado", "usos_dia": 1},
+        {"nome": "Passo Fantasma", "efeito": "Teletransporta-se até 10 Quadrados e dispara com vantagem", "usos_dia": 1},
+        {"nome": "Marca da Morte", "efeito": "Alvo marcado sofre +2d6 de Dano de todas as fontes por 3 turnos", "usos_dia": 1}
+      ],
+      "10": [
+        {"nome": "Flecha do Fim", "efeito": "6d10 de Dano à distância", "usos_dia": 1},
+        {"nome": "Chuva Infinita", "efeito": "Por 3 turnos, 3d8 de Dano numa área de 5 × 5 Quadrados no início de cada turno", "usos_dia": 1},
+        {"nome": "Espírito da Floresta", "efeito": "Invoca um espírito Grande por 3 turnos: 3d10 de Dano por turno", "usos_dia": 1},
+        {"nome": "Olho Divino", "efeito": "Por 3 turnos, todos os ataques do Patrulheiro acertam automaticamente", "usos_dia": 1}
       ]
     }
   }

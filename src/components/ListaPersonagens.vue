@@ -57,7 +57,7 @@ const filtradas = computed(() => {
           >
             <span class="lista__nome">{{ ficha.nome || 'Personagem sem nome' }}</span>
             <span class="lista__detalhe">
-              {{ [ficha.raca, ficha.classe].filter(Boolean).join(' · ') || '—' }}
+              {{ [ficha.raca, ficha.classe, ficha.afiliacao].filter(Boolean).join(' · ') || '—' }}
               <template v-if="ficha.jogador"> · {{ ficha.jogador }}</template>
             </span>
           </button>

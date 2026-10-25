@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import ListaMagias from '../components/ListaMagias.vue'
-import { agruparPorNivel, classeDoCatalogo, classes, magias } from '../data/magias.js'
+import { afiliacoes, agruparPorNivel, classeDoCatalogo, classes, magias } from '../data/magias.js'
 import { adicionarMagia, ouvirFichas } from '../services/mesaOnline.js'
 import { definirIdAberta, obterIdAberta } from '../services/preferencias.js'
 import { paraBusca } from '../utils/texto.js'
@@ -37,7 +37,8 @@ onMounted(() => {
 
 onBeforeUnmount(() => pararDeOuvir?.())
 
-const classe = ref(classes[0])
+// Classe ou afiliação mostrada (TODAS mostra o catálogo inteiro).
+const grupo = ref(classes[0])
 const busca = ref('')
 const nivel = ref('')
 
@@ -46,7 +47,7 @@ watch(
   () => fichaAlvo.value?.id,
   () => {
     const daFicha = classeDoCatalogo(fichaAlvo.value?.classe)
-    if (daFicha) classe.value = daFicha
+    if (daFicha) grupo.value = daFicha
     aviso.value = ''
   },
 )
@@ -57,15 +58,15 @@ const filtradas = computed(() => {
   const termo = paraBusca(busca.value)
   return magias.filter(
     (m) =>
-      (classe.value === TODAS || m.classe === classe.value) &&
+      (grupo.value === TODAS || m.grupo === grupo.value) &&
       (!nivel.value || String(m.nivel) === nivel.value) &&
       (!termo || paraBusca(m.nome).includes(termo) || paraBusca(m.efeito).includes(termo)),
   )
 })
 
 const grupos = computed(() => agruparPorNivel(filtradas.value))
-const totalDaClasse = computed(() =>
-  classe.value === TODAS ? magias.length : magias.filter((m) => m.classe === classe.value).length,
+const totalDoGrupo = computed(() =>
+  grupo.value === TODAS ? magias.length : magias.filter((m) => m.grupo === grupo.value).length,
 )
 
 function limpar() {
@@ -94,18 +95,31 @@ function adicionar(magiaId) {
         :key="c"
         type="button"
         class="classe"
-        :aria-pressed="classe === c"
-        @click="classe = c"
+        :aria-pressed="grupo === c"
+        @click="grupo = c"
       >
         {{ c }}
       </button>
       <button
         type="button"
         class="classe"
-        :aria-pressed="classe === TODAS"
-        @click="classe = TODAS"
+        :aria-pressed="grupo === TODAS"
+        @click="grupo = TODAS"
       >
         Todas
+      </button>
+    </nav>
+    <nav class="classes classes--afiliacoes" aria-label="Afiliações">
+      <span class="classes__rotulo">Afiliações</span>
+      <button
+        v-for="a in afiliacoes"
+        :key="a"
+        type="button"
+        class="classe"
+        :aria-pressed="grupo === a"
+        @click="grupo = a"
+      >
+        {{ a }}
       </button>
     </nav>
 
@@ -138,9 +152,9 @@ function adicionar(magiaId) {
     </section>
 
     <div class="resultado">
-      <h2 class="resultado__titulo">{{ classe || 'Todas as classes' }}</h2>
+      <h2 class="resultado__titulo">{{ grupo || 'Todo o grimório' }}</h2>
       <p class="aviso" aria-live="polite">
-        {{ filtradas.length }} de {{ totalDaClasse }} magias
+        {{ filtradas.length }} de {{ totalDoGrupo }} magias
         <button
           v-if="busca || nivel"
           type="button"
@@ -156,7 +170,7 @@ function adicionar(magiaId) {
     <ListaMagias
       v-if="grupos.length"
       :grupos="grupos"
-      :mostrar-classe="classe === TODAS"
+      :mostrar-grupo="grupo === TODAS"
       :ids-na-ficha="fichaAlvo ? fichaAlvo.magiasIds : null"
       @adicionar="adicionar"
     />
@@ -171,6 +185,16 @@ function adicionar(magiaId) {
   justify-content: center;
   gap: 0.4rem;
   margin-bottom: 1rem;
+}
+
+.classes--afiliacoes {
+  margin-top: -0.5rem;
+}
+
+.classes__rotulo {
+  align-self: center;
+  font-weight: bold;
+  color: var(--tinta-suave);
 }
 
 .classe {

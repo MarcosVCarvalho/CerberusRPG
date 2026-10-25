@@ -1,6 +1,15 @@
 <script setup>
+import { computed } from 'vue'
 import { ATRIBUTOS } from '../services/ficha.js'
-import { classes } from '../data/magias.js'
+import {
+  afiliacaoDoCatalogo,
+  afiliacoes,
+  classeDoCatalogo,
+  classes,
+  dadosDaAfiliacao,
+} from '../data/magias.js'
+import { nomesDasRacas, pvMaximo, racaDaFicha } from '../data/regras.js'
+import { rolarAtributo } from '../services/dados.js'
 import SeletorMagias from './SeletorMagias.vue'
 
 // A ficha é editada diretamente (v-model no componente pai).
@@ -11,6 +20,7 @@ const identidade = [
   { chave: 'nome', rotulo: 'Personagem' },
   { chave: 'raca', rotulo: 'Raça' },
   { chave: 'classe', rotulo: 'Classe' },
+  { chave: 'afiliacao', rotulo: 'Afiliação' },
   { chave: 'nivel', rotulo: 'Nível', curto: true },
   { chave: 'dinheiro', rotulo: 'Dinheiro', curto: true },
   { chave: 'idade', rotulo: 'Idade', curto: true },
@@ -23,6 +33,18 @@ const textos = [
   { chave: 'tracosNegativos', rotulo: 'Traços negativos', linhas: 3 },
   { chave: 'equipamentos', rotulo: 'Equipamentos', linhas: 6 },
 ]
+
+// Sugestões (datalist) dos campos de texto livre.
+const sugestoes = { raca: nomesDasRacas, classe: classes, afiliacao: afiliacoes }
+
+const raca = computed(() => racaDaFicha(ficha.value.raca))
+const afiliacao = computed(() => {
+  const nome = afiliacaoDoCatalogo(ficha.value.afiliacao)
+  return nome ? { nome, ...dadosDaAfiliacao(nome) } : null
+})
+const pvMax = computed(() =>
+  pvMaximo(ficha.value.raca, classeDoCatalogo(ficha.value.classe), ficha.value.nivel),
+)
 
 const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
 </script>
@@ -51,19 +73,58 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
                 v-model="ficha[campo.chave]"
                 type="text"
                 autocomplete="off"
-                :list="campo.chave === 'classe' ? idCampo('classes') : undefined"
+                :list="sugestoes[campo.chave] ? idCampo(`${campo.chave}-opcoes`) : undefined"
               />
             </div>
           </div>
-          <datalist :id="idCampo('classes')">
-            <option v-for="c in classes" :key="c" :value="c" />
+          <datalist v-for="(opcoes, chave) in sugestoes" :id="idCampo(`${chave}-opcoes`)" :key="chave">
+            <option v-for="opcao in opcoes" :key="opcao" :value="opcao" />
           </datalist>
+        </section>
+
+        <section class="caixa">
+          <h3 class="caixa__titulo">Vida e origem</h3>
+          <div class="vida">
+            <label :for="idCampo('pvAtual')">PV</label>
+            <input
+              :id="idCampo('pvAtual')"
+              v-model="ficha.pvAtual"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+            />
+            <span class="vida__maximo">/ {{ pvMax ?? '—' }}</span>
+          </div>
+          <p v-if="pvMax === null" class="aviso origem__dica">
+            Preencha Raça, Classe e Nível para calcular o PV máximo.
+          </p>
+          <dl v-if="raca || afiliacao" class="origem">
+            <template v-if="raca">
+              <dt>{{ raca.nome }}</dt>
+              <dd>{{ raca.tamanho }} · {{ raca.movimento }} Quadrados de movimento</dd>
+              <dt>{{ raca.traco.nome }}</dt>
+              <dd>{{ raca.traco.efeito }}</dd>
+            </template>
+            <template v-if="afiliacao">
+              <dt>{{ afiliacao.nome }}</dt>
+              <dd>{{ afiliacao.tema }} · atributo {{ afiliacao.atributo }}</dd>
+            </template>
+          </dl>
         </section>
 
         <section class="caixa">
           <h3 class="caixa__titulo">Atributos</h3>
           <div class="atributos">
             <div v-for="atributo in ATRIBUTOS" :key="atributo.chave" class="atributo">
+              <button
+                type="button"
+                class="atributo__rolar"
+                :aria-label="`Rolar 1d20 + ${atributo.rotulo}`"
+                :title="`Rolar 1d20 + ${atributo.rotulo}`"
+                @click="rolarAtributo(ficha.nome, atributo.rotulo, ficha.atributos[atributo.chave])"
+              >
+                🎲
+              </button>
               <label :for="idCampo(atributo.chave)">{{ atributo.rotulo }}</label>
               <input
                 :id="idCampo(atributo.chave)"
@@ -82,7 +143,11 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
           <h3 class="caixa__titulo">
             <label :for="idCampo('magiasHabilidades')">Magias e habilidades</label>
           </h3>
-          <SeletorMagias v-model="ficha.magiasIds" :classe="ficha.classe" />
+          <SeletorMagias
+            v-model="ficha.magiasIds"
+            :classe="ficha.classe"
+            :afiliacao="ficha.afiliacao"
+          />
           <textarea
             :id="idCampo('magiasHabilidades')"
             v-model="ficha.magiasHabilidades"
@@ -187,7 +252,8 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
 }
 
 .linha-campo input,
-.atributo input {
+.atributo input,
+.vida input {
   flex: 1;
   width: 100%;
   min-width: 0;
@@ -199,9 +265,48 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
 
 .linha-campo input:focus,
 .atributo input:focus,
+.vida input:focus,
 .texto-pautado:focus {
   outline: none;
   border-bottom-color: var(--destaque);
+}
+
+.vida {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.vida label {
+  font-weight: bold;
+}
+
+.vida input {
+  flex: 0 1 5ch;
+  text-align: center;
+}
+
+.vida__maximo {
+  font-weight: bold;
+}
+
+.origem__dica {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+}
+
+.origem {
+  margin: 0.6rem 0 0;
+}
+
+.origem dt {
+  font-weight: bold;
+}
+
+.origem dd {
+  margin: 0 0 0.35rem;
+  font-size: 0.92rem;
 }
 
 .atributos {
@@ -211,6 +316,7 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
 }
 
 .atributo {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,6 +330,29 @@ const idCampo = (chave) => `ficha-${ficha.value.id}-${chave}`
   font-size: 0.8rem;
   font-weight: bold;
   text-align: center;
+  /* Não passa por baixo do botão de rolar. */
+  padding: 0 1.1rem;
+}
+
+.atributo__rolar {
+  position: absolute;
+  top: 0.15rem;
+  right: 0.15rem;
+  padding: 0 0.15rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.atributo__rolar:hover {
+  background: var(--pergaminho);
+}
+
+.atributo__rolar:focus-visible {
+  outline: 2px solid var(--destaque);
 }
 
 .atributo input {

@@ -75,7 +75,7 @@ export function salvarFichaCompleta(mesaId, ficha) {
   return setDoc(refFicha(mesaId, ficha.id), paraBanco(ficha))
 }
 
-// Atualiza só os campos alterados, ex.: { 'atributos.vida': '14' }.
+// Atualiza só os campos alterados, ex.: { pvAtual: '14' }.
 // Assim duas pessoas editando campos diferentes da mesma ficha não se sobrescrevem.
 export function atualizarCampos(mesaId, fichaId, patch) {
   return updateDoc(refFicha(mesaId, fichaId), { ...patch, atualizadoEm: new Date().toISOString() })

@@ -1,0 +1,81 @@
+{
+  "afiliacoes": {
+    "Pacto do Sangue Carmesim": {
+      "tema": "Magia de sangue, vampirismo",
+      "atributo": "Misticismo",
+      "habilidades": {
+        "1": [{"nome": "Agulha de Sangue", "efeito": "Sofre 1d4 de dano para causar 2d6 de Dano perfurante a até 6 Quadrados", "usos_dia": 4}],
+        "3": [{"nome": "Transfusão Sombria", "efeito": "Rouba 1d8 PV de um inimigo adjacente e cura esse valor num aliado adjacente", "usos_dia": 3}],
+        "5": [{"nome": "Fúria Sanguinária", "efeito": "Com menos de 30% dos PV, +2 de Dano em todos os ataques", "usos_dia": null}],
+        "7": [{"nome": "Pacto Rubro", "efeito": "Sacrifica até 10 PV; o próximo acerto no turno causa dano extra igual ao sacrificado", "usos_dia": 2}],
+        "9": [{"nome": "Senhor do Sangue", "efeito": "Por 3 turnos, metade de todo o dano causado volta como cura", "usos_dia": 1}]
+      }
+    },
+    "Sindicato da Máscara de Prata": {
+      "tema": "Crime urbano, furtividade",
+      "atributo": "Furtividade",
+      "habilidades": {
+        "1": [{"nome": "Truque Sujo", "efeito": "Areia nos olhos de um inimigo adjacente: o próximo ataque contra ele tem vantagem", "usos_dia": 3}],
+        "3": [{"nome": "Passo de Fumaça", "efeito": "Teletransporta-se até 3 Quadrados entre áreas de penumbra ou escuridão", "usos_dia": 3}],
+        "5": [{"nome": "Veneno de Lótus", "efeito": "O próximo alvo atingido fica Envenenado (1d6 por 2 turnos) e perde 2 Quadrados de movimento", "usos_dia": 2}],
+        "7": [{"nome": "Golpe pelas Costas", "efeito": "+2d6 de Dano contra alvo que não o viu ou que esteja adjacente a um aliado", "usos_dia": 3}],
+        "9": [{"nome": "Mil Máscaras", "efeito": "Invisível por 2 turnos ou até atacar; o ataque que quebrar a invisibilidade tem vantagem", "usos_dia": 1}]
+      }
+    },
+    "A Chama Inquisidora": {
+      "tema": "Ordem divina, fanatismo",
+      "atributo": "Misticismo",
+      "habilidades": {
+        "1": [{"nome": "Marca do Herege", "efeito": "Alvo a até 6 Quadrados sofre +1 de dano de todas as fontes por 2 turnos", "usos_dia": 3}],
+        "3": [{"nome": "Arma Cauterizadora", "efeito": "+1d6 de Dano de fogo; o alvo não pode ser curado até o fim do próximo turno dele", "usos_dia": 3}],
+        "5": [{"nome": "Purgação", "efeito": "Dissipa ilusões, maldições e controle mental num raio de 4 Quadrados", "usos_dia": 1}],
+        "7": [{"nome": "Fogueira Sagrada", "efeito": "3d6 de Dano de fogo numa área de 3 × 3 Quadrados a até 8 Quadrados", "usos_dia": 2}],
+        "9": [{"nome": "Juízo Final", "efeito": "6d6 de Dano de fogo num alvo com a Marca do Herege; se cair, explode 2d6 nos adjacentes", "usos_dia": 1}]
+      }
+    },
+    "Herança Licantropa": {
+      "tema": "Mutação, natureza selvagem",
+      "atributo": "Ataque",
+      "habilidades": {
+        "1": [{"nome": "Faro do Predador", "efeito": "Vantagem em Percepção para detectar inimigos escondidos ou invisíveis", "usos_dia": null}],
+        "3": [{"nome": "Garras da Besta", "efeito": "Ataques desarmados causam 1d8 de Dano cortante", "usos_dia": null}],
+        "5": [{"nome": "Transformação Híbrida", "efeito": "Por 3 turnos: +2 Quadrados de movimento e +10 PV temporários; o uivo amedronta inimigos adjacentes", "usos_dia": 1}],
+        "7": [{"nome": "Salto Feroz", "efeito": "Salta até 4 Quadrados sem Ataque de Oportunidade e ataca com as garras; acerto causa Recuo de 1 Quadrado", "usos_dia": 3}],
+        "9": [{"nome": "Fera Alfa", "efeito": "A Transformação Híbrida dura 5 turnos e regenera 5 PV por turno", "usos_dia": null}]
+      }
+    },
+    "Confraria do Mecanismo": {
+      "tema": "Engenharia, engenhocas",
+      "atributo": "Inteligência",
+      "habilidades": {
+        "1": [{"nome": "Granada de Sucata", "efeito": "1d6 de Dano perfurante numa área de 3 × 3 Quadrados a até 6 Quadrados", "usos_dia": 3}],
+        "3": [{"nome": "Arpéu de Pulso", "efeito": "Puxa-se até 5 Quadrados para um telhado ou parede, sem Ataque de Oportunidade", "usos_dia": 3}],
+        "5": [{"nome": "Torreta Autônoma", "efeito": "Besta mecânica por 3 rodadas (10 PV): 1d8 de Dano no inimigo mais próximo a cada turno", "usos_dia": 1}],
+        "7": [{"nome": "Couraça a Vapor", "efeito": "Como Reação, reduz o dano sofrido em 1d8 + Inteligência", "usos_dia": 2}],
+        "9": [{"nome": "Canhão Portátil", "efeito": "4d8 de Dano numa linha de 8 Quadrados; o coice impede o movimento no próximo turno", "usos_dia": 1}]
+      }
+    },
+    "Mago das Sombras": {
+      "tema": "Sombras capturadas, Grimório",
+      "atributo": "Misticismo",
+      "habilidades": {
+        "1": [{"nome": "Garra das Sombras", "efeito": "1d8 de Dano sombrio a até 6 Quadrados; o alvo não recupera PV até o fim do próximo turno dele", "usos_dia": 4}],
+        "3": [{"nome": "Barreira de Sombras", "efeito": "Silhuetas absorvem até 10 de dano por 3 turnos", "usos_dia": 2}],
+        "5": [{"nome": "Ceifador de Sombras", "efeito": "Ao abater um inimigo racional, recupera 1d6 + nível em PV", "usos_dia": null}],
+        "7": [{"nome": "Sentença da Sombra Alheia", "efeito": "Teletransporta-se para a sombra de um inimigo a até 8 Quadrados e ataca: 3d6 de Dano sombrio", "usos_dia": 2}],
+        "9": [{"nome": "Fios do Abismo", "efeito": "Prende até 3 inimigos por 3 turnos; cada um perde 1d8 PV por turno para curar o Mago", "usos_dia": 1}]
+      }
+    },
+    "Domínio da Luz": {
+      "tema": "Luz sagrada, proteção e cura",
+      "atributo": "Misticismo",
+      "habilidades": {
+        "1": [{"nome": "Raio de Luz", "efeito": "1d8 de Dano radiante a até 8 Quadrados; +1d8 contra mortos-vivos e criaturas das sombras", "usos_dia": 4}],
+        "3": [{"nome": "Clarão Ofuscante", "efeito": "Como Reação, quem o atacar faz teste de Defesa ou fica Cego até o fim do turno", "usos_dia": 2}],
+        "5": [{"nome": "Aura de Luz", "efeito": "Por 3 turnos, luz plena num raio de 4 Quadrados; aliados no raio recuperam 1d4 PV por turno", "usos_dia": 1}],
+        "7": [{"nome": "Coluna Solar", "efeito": "3d6 de Dano radiante numa área de 3 × 3 Quadrados a até 8 Quadrados", "usos_dia": 2}],
+        "9": [{"nome": "Amanhecer", "efeito": "Raio de 6 Quadrados: inimigos sofrem 4d6 de Dano radiante e aliados recuperam 2d6 PV", "usos_dia": 1}]
+      }
+    }
+  }
+}

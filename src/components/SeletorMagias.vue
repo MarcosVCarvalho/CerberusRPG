@@ -1,18 +1,29 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { agruparPorNivel, classeDoCatalogo, classes, magias, obterMagia } from '../data/magias.js'
+import {
+  afiliacaoDoCatalogo,
+  afiliacoes,
+  agruparPorNivel,
+  classeDoCatalogo,
+  classes,
+  magias,
+  obterMagia,
+  textoUsos,
+} from '../data/magias.js'
 
 // Lista de ids de magias do catálogo associadas à ficha.
 const ids = defineModel({ type: Array, required: true })
 
 const props = defineProps({
-  // Texto do campo "Classe" da ficha; filtra as opções quando corresponde a uma classe do catálogo.
+  // Textos dos campos "Classe" e "Afiliação" da ficha; filtram as opções quando correspondem ao catálogo.
   classe: { type: String, default: '' },
+  afiliacao: { type: String, default: '' },
 })
 
 const escolhida = ref('')
 
 const classeAtual = computed(() => classeDoCatalogo(props.classe))
+const afiliacaoAtual = computed(() => afiliacaoDoCatalogo(props.afiliacao))
 
 // Ids que não existem mais no catálogo são ignorados na exibição.
 const associadas = computed(() =>
@@ -22,18 +33,24 @@ const associadas = computed(() =>
     .sort((a, b) => a.nivel - b.nivel || a.nome.localeCompare(b.nome, 'pt-BR')),
 )
 
-// Opções agrupadas: por nível da classe da ficha, ou por classe se ela não for reconhecida.
+// Opções agrupadas: por nível da classe da ficha (ou por classe, se ela não for reconhecida),
+// seguidas da afiliação da ficha (ou de todas, se ela não for reconhecida).
 const grupos = computed(() => {
   const disponiveis = magias.filter((m) => !ids.value.includes(m.id))
-  if (classeAtual.value) {
-    return agruparPorNivel(disponiveis.filter((m) => m.classe === classeAtual.value)).map((g) => ({
-      rotulo: `Nível ${g.nivel}`,
-      magias: g.magias,
-    }))
-  }
-  return classes
-    .map((c) => ({ rotulo: c, magias: disponiveis.filter((m) => m.classe === c) }))
-    .filter((g) => g.magias.length)
+  const doGrupo = (grupo) => disponiveis.filter((m) => m.grupo === grupo)
+  const daClasse = classeAtual.value
+    ? agruparPorNivel(doGrupo(classeAtual.value)).map((g) => ({
+        rotulo: `Nível ${g.nivel}`,
+        magias: g.magias,
+        mostrarNivel: false,
+      }))
+    : classes.map((c) => ({ rotulo: c, magias: doGrupo(c), mostrarNivel: true }))
+  const daAfiliacao = (afiliacaoAtual.value ? [afiliacaoAtual.value] : afiliacoes).map((a) => ({
+    rotulo: `Afiliação: ${a}`,
+    magias: doGrupo(a),
+    mostrarNivel: true,
+  }))
+  return [...daClasse, ...daAfiliacao].filter((g) => g.magias.length)
 })
 
 function adicionar() {
@@ -56,8 +73,8 @@ function remover(id) {
           <strong>{{ magia.nome }}</strong>
           <span class="seletor__efeito">{{ magia.efeito }}</span>
           <span class="seletor__meta">
-            <template v-if="magia.classe !== classeAtual">{{ magia.classe }} · </template>
-            Nv. {{ magia.nivel }} · {{ magia.usosDia }}×/dia
+            <template v-if="magia.grupo !== classeAtual">{{ magia.grupo }} · </template>
+            Nv. {{ magia.nivel }} · {{ textoUsos(magia) }}
           </span>
         </div>
         <button
@@ -79,7 +96,7 @@ function remover(id) {
         </option>
         <optgroup v-for="grupo in grupos" :key="grupo.rotulo" :label="grupo.rotulo">
           <option v-for="magia in grupo.magias" :key="magia.id" :value="magia.id">
-            <template v-if="!classeAtual">Nv. {{ magia.nivel }} · </template>{{ magia.nome }} —
+            <template v-if="grupo.mostrarNivel">Nv. {{ magia.nivel }} · </template>{{ magia.nome }} —
             {{ magia.efeito }}
           </option>
         </optgroup>
@@ -89,8 +106,8 @@ function remover(id) {
       </button>
     </div>
     <p v-if="!classeAtual" class="aviso seletor__dica">
-      Dica: preencha a Classe com uma das classes do grimório ({{ classes.join(', ') }}) para ver
-      só as magias dela.
+      Dica: preencha a Classe com uma das classes do grimório ({{ classes.join(', ') }}) e a
+      Afiliação para ver só as habilidades delas.
     </p>
   </div>
 </template>

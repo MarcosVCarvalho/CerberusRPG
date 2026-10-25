@@ -1,9 +1,8 @@
 // Modelo da ficha de personagem: campos, criação, normalização e comparação campo a campo.
 
-const VERSAO = 1
+const VERSAO = 2
 
 export const ATRIBUTOS = [
-  { chave: 'vida', rotulo: 'Vida' },
   { chave: 'ataque', rotulo: 'Ataque' },
   { chave: 'defesa', rotulo: 'Defesa' },
   { chave: 'agilidade', rotulo: 'Agilidade' },
@@ -18,7 +17,7 @@ export const ATRIBUTOS = [
 ]
 
 export const CAMPOS_TEXTO = [
-  'jogador', 'nome', 'raca', 'classe', 'nivel', 'dinheiro', 'idade', 'genero',
+  'jogador', 'nome', 'raca', 'classe', 'afiliacao', 'nivel', 'dinheiro', 'idade', 'genero', 'pvAtual',
   'magiasHabilidades', 'personalidade', 'tracosPositivos', 'tracosNegativos', 'equipamentos',
 ]
 
@@ -61,13 +60,15 @@ export function normalizarFicha(dados) {
   for (const campo of CAMPOS_TEXTO) ficha[campo] = comoTexto(dados[campo])
   const atributos = dados.atributos && typeof dados.atributos === 'object' ? dados.atributos : {}
   for (const { chave } of ATRIBUTOS) ficha.atributos[chave] = comoTexto(atributos[chave])
+  // Versão 1 marcava os PV no atributo "vida"; ele passa para o PV atual.
+  if (dados.pvAtual === undefined) ficha.pvAtual = comoTexto(atributos.vida)
   ficha.magiasIds = Array.isArray(dados.magiasIds)
     ? [...new Set(dados.magiasIds.filter((id) => typeof id === 'string'))]
     : []
   return ficha
 }
 
-// Representação "plana" dos campos editáveis: { nome, 'atributos.vida', magiasIds, ... }.
+// Representação "plana" dos campos editáveis: { nome, 'atributos.ataque', magiasIds, ... }.
 // As chaves são os caminhos usados nas atualizações parciais do banco.
 export function planificar(ficha) {
   const plano = {}

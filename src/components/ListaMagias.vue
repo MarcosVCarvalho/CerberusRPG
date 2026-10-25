@@ -1,8 +1,11 @@
 <script setup>
+import { textoUsos } from '../data/magias.js'
+
 defineProps({
   // [{ nivel, magias: [...] }]
   grupos: { type: Array, required: true },
-  mostrarClasse: { type: Boolean, default: false },
+  // Mostra a classe ou afiliação de cada magia (quando a lista mistura grupos).
+  mostrarGrupo: { type: Boolean, default: false },
   // ids das magias que a ficha alvo já possui; null quando não há ficha alvo
   idsNaFicha: { type: Array, default: null },
 })
@@ -18,11 +21,14 @@ const emit = defineEmits(['adicionar'])
         <li v-for="magia in grupo.magias" :key="magia.id" class="magia">
           <div class="magia__principal">
             <span class="magia__nome">{{ magia.nome }}</span>
-            <span v-if="mostrarClasse" class="etiqueta">{{ magia.classe }}</span>
+            <span v-if="mostrarGrupo" class="etiqueta">{{ magia.grupo }}</span>
           </div>
           <span class="magia__efeito">{{ magia.efeito }}</span>
-          <span class="magia__usos" :title="`${magia.usosDia} uso(s) por dia`">
-            {{ magia.usosDia }}×/dia
+          <span
+            class="magia__usos"
+            :title="magia.usosDia === null ? 'Sempre ativa' : `${magia.usosDia} uso(s) por dia`"
+          >
+            {{ textoUsos(magia) }}
           </span>
           <div v-if="idsNaFicha" class="magia__acao">
             <span v-if="idsNaFicha.includes(magia.id)" class="aviso">✓ Na ficha</span>
