@@ -61,6 +61,16 @@ export const RACAS = [
     },
   },
   {
+    nome: 'Dhampir',
+    pv: 35,
+    tamanho: 'Médio',
+    movimento: 7,
+    traco: {
+      nome: 'Sede de Sangue',
+      efeito: 'Uma vez por Descanso Longo, ao acertar um ataque corpo a corpo, recupera PV igual ao dano causado.',
+    },
+  },
+  {
     nome: 'Elfo',
     pv: 30,
     tamanho: 'Médio',

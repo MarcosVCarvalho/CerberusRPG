@@ -48,6 +48,7 @@ Um personagem nasce de seis escolhas, feitas nesta ordem:
 | Tiefling | 40 | Médio | 6 Quadrados | **Sangue Infernal:** sofre metade do dano de fogo. | Constituição humana marcada por herança demoníaca. |
 | Aasimar | 40 | Médio | 6 Quadrados | **Centelha Celestial:** sofre metade do dano sombrio. | Sangue celestial num corpo humano. |
 | Draconato | 40 | Médio | 6 Quadrados | **Sopro de Dragão:** uma vez por Descanso Longo, causa 2d6 de dano de fogo numa linha de 4 Quadrados (teste de Agilidade para metade). | Escamas duras, mas anatomia equilibrada como a humana. |
+| Dhampir | 35 | Médio | 7 Quadrados | **Sede de Sangue:** uma vez por Descanso Longo, ao acertar um ataque corpo a corpo, recupera PV igual ao dano causado. | Meio-vampiro: ágil e predador, mas com a carne mais frágil que a humana. |
 | Elfo | 30 | Médio | 7 Quadrados | **Olhos da Floresta:** ignora a desvantagem de Percepção na penumbra. | Físico esguio, depende da esquiva em vez de absorver golpes. |
 | Halfling / Gnomo | 25 | Pequeno | 5 Quadrados | **Escapadiço:** pode atravessar o quadrado de criaturas Médias ou maiores, inclusive inimigos. | Estrutura pequena, com baixa tolerância a impacto físico. |
 
